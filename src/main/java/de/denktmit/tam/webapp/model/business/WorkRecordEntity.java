@@ -29,23 +29,17 @@ public class WorkRecordEntity {
     @NotBlank
     private final Short billingMonth;
 
-    //TODO: rename fk_
-    //TODO: get Document Object instead of Integer
     @Column(name = "upload_date")
     private Instant uploadDate;
 
     @Column(name = "work_record_upload_id")
-    private int workRecordUploadId;
+    private int workRecordUploadId; //TODO: rename fk_
 
-    //TODO: rename fk_
-    //TODO: get Document Object instead of Integer
     @Column(name = "credit_note_id")
-    private Integer creditNoteId;
+    private Integer creditNoteId; //TODO: rename fk_
 
-    //TODO: rename fk_
-    //TODO: get Document Object instead of Integer
     @Column(name = "invoice_id")
-    private Integer invoiceId;
+    private Integer invoiceId; //TODO: rename fk_
 
     private WorkRecordEntity() {
         this.billingYear = null;
