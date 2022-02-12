@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.NaturalId;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -11,13 +13,14 @@ import java.util.Objects;
 @Table(name = "contract")
 public class ContractEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
 
     @Column(name = "code")
     @NotBlank
+    @NaturalId
     private final String code;
    
     @Column(name = "fk_cost_centre_id")
