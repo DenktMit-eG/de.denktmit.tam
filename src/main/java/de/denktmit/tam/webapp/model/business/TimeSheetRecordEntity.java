@@ -1,7 +1,10 @@
 package de.denktmit.tam.webapp.model.business;
 
 import javax.persistence.*;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "time_sheet_record")
@@ -12,22 +15,39 @@ public class TimeSheetRecordEntity {
     private long id;
    
     @Column(name = "work_record_id")
-    private long workRecordId;
+    @NotBlank
+    private final Long workRecordId;
    
     @Column(name = "position")
-    private short position;
+    @NotBlank
+    private final Short position;
    
     @Column(name = "begin")
+    @NotBlank
     private Instant begin;
    
     @Column(name = "end")
+    @NotBlank //TODO: custom validator: end > begin
     private Instant end;
    
     @Column(name = "description")
+    @NotBlank
     private String description;
    
     @Column(name = "duration_in_minutes")
+    @NotBlank
+    @DecimalMin(value = "0", inclusive = false)
     private int durationInMinutes;
+
+    private TimeSheetRecordEntity() {
+        this.workRecordId = null;
+        this.position = null;
+    }
+
+    public TimeSheetRecordEntity(Long workRecordId, Short position) {
+        this.workRecordId = workRecordId;
+        this.position = position;
+    }
 
     public long getId() {
         return id;
@@ -41,16 +61,8 @@ public class TimeSheetRecordEntity {
         return workRecordId;
     }
 
-    public void setWorkRecordId(long workRecordId) {
-        this.workRecordId = workRecordId;
-    }
-
     public short getPosition() {
         return position;
-    }
-
-    public void setPosition(short position) {
-        this.position = position;
     }
 
     public Instant getBegin() {
@@ -85,4 +97,16 @@ public class TimeSheetRecordEntity {
         this.durationInMinutes = durationInMinutes;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof TimeSheetRecordEntity)) return false;
+        TimeSheetRecordEntity that = (TimeSheetRecordEntity) o;
+        return Objects.equals(workRecordId, that.workRecordId) && Objects.equals(position, that.position);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(workRecordId, position);
+    }
 }

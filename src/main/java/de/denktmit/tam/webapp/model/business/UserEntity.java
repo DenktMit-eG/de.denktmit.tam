@@ -45,7 +45,7 @@ public class UserEntity {
     @Column(name = "adress_street")
     private String adressStreet;
 
-    public UserEntity() {
+    private UserEntity() {
         this.loginName = null;
     }
 
