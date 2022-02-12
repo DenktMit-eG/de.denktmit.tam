@@ -1,38 +1,60 @@
 package de.denktmit.tam.webapp.model.business;
 
 import javax.persistence.*;
-import java.util.Objects;
+import javax.validation.constraints.DecimalMax;
+import javax.validation.constraints.DecimalMin;
+import javax.validation.constraints.NotBlank;
 
 @Entity
 @Table(name = "work_record")
 public class WorkRecordEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+
     @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
    
     @Column(name = "fk_contract_id")
     private long fkContractId;
-   
+
     @Column(name = "billing_year")
-    private short billingYear;
-   
+    @NotBlank
+    @DecimalMin(value = "2020")
+    private final Short billingYear;
+
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "12")
     @Column(name = "billing_month")
-    private short billingMonth;
+    @NotBlank
+    private final Short billingMonth;
    
     @Column(name = "upload_date")
     private Object uploadDate;
-   
+
+    //TODO: rename fk_
+    //TODO: get Document Object instead of Integer
     @Column(name = "work_record_upload_id")
     private int workRecordUploadId;
-   
+
+    //TODO: rename fk_
+    //TODO: get Document Object instead of Integer
     @Column(name = "credit_note_id")
     private Integer creditNoteId;
-   
+
+    //TODO: rename fk_
+    //TODO: get Document Object instead of Integer
     @Column(name = "invoice_id")
     private Integer invoiceId;
 
+    private WorkRecordEntity() {
+        this.billingYear = null;
+        this.billingMonth = null;
+    }
 
+    public WorkRecordEntity(short billingYear, short billingMonth) {
+        this.billingYear = billingYear;
+        this.billingMonth = billingMonth;
+    }
 
     public long getId() {
         return id;
@@ -54,17 +76,11 @@ public class WorkRecordEntity {
         return billingYear;
     }
 
-    public void setBillingYear(short billingYear) {
-        this.billingYear = billingYear;
-    }
 
     public short getBillingMonth() {
         return billingMonth;
     }
 
-    public void setBillingMonth(short billingMonth) {
-        this.billingMonth = billingMonth;
-    }
 
     public Object getUploadDate() {
         return uploadDate;
