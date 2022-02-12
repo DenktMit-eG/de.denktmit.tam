@@ -14,7 +14,7 @@ import java.util.Objects;
 public class ContractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "ID_GENERATOR")
     @Column(name = "id")
     private long id;
 
