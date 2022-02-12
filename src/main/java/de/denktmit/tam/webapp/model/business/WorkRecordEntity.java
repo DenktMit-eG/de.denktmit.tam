@@ -1,11 +1,12 @@
 package de.denktmit.tam.webapp.model.business;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.time.Instant;
 
 @Entity
 @Table(name = "work_record")
 public class WorkRecordEntity {
+
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id
     @Column(name = "id")
@@ -21,7 +22,7 @@ public class WorkRecordEntity {
     private short billingMonth;
    
     @Column(name = "upload_date")
-    private Object uploadDate;
+    private Instant uploadDate;
    
     @Column(name = "work_record_upload_id")
     private int workRecordUploadId;
@@ -66,11 +67,11 @@ public class WorkRecordEntity {
         this.billingMonth = billingMonth;
     }
 
-    public Object getUploadDate() {
+    public Instant getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Object uploadDate) {
+    public void setUploadDate(Instant uploadDate) {
         this.uploadDate = uploadDate;
     }
 

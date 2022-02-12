@@ -1,7 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
 import javax.persistence.*;
-import java.util.Objects;
+import java.time.Instant;
 
 @Entity
 @Table(name = "time_sheet_record")
@@ -18,10 +18,10 @@ public class TimeSheetRecordEntity {
     private short position;
    
     @Column(name = "begin")
-    private Object begin;
+    private Instant begin;
    
     @Column(name = "end")
-    private Object end;
+    private Instant end;
    
     @Column(name = "description")
     private String description;
@@ -53,19 +53,19 @@ public class TimeSheetRecordEntity {
         this.position = position;
     }
 
-    public Object getBegin() {
+    public Instant getBegin() {
         return begin;
     }
 
-    public void setBegin(Object begin) {
+    public void setBegin(Instant begin) {
         this.begin = begin;
     }
 
-    public Object getEnd() {
+    public Instant getEnd() {
         return end;
     }
 
-    public void setEnd(Object end) {
+    public void setEnd(Instant end) {
         this.end = end;
     }
 

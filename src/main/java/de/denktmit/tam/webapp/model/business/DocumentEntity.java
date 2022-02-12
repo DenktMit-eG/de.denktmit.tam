@@ -1,8 +1,10 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.Type;
+
 import javax.persistence.*;
-import java.util.Arrays;
-import java.util.Objects;
+import java.time.Instant;
+import java.util.UUID;
 
 @Entity
 @Table(name = "document")
@@ -13,7 +15,8 @@ public class DocumentEntity {
     private long id;
    
     @Column(name = "doc_uuid")
-    private Object docUuid;
+    @Type(type="pg-uuid")
+    private UUID docUuid;
    
     @Column(name = "name")
     private String name;
@@ -31,13 +34,13 @@ public class DocumentEntity {
     private byte[] content;
    
     @Column(name = "created_at")
-    private Object createdAt;
+    private Instant createdAt;
    
     @Column(name = "created_by")
     private String createdBy;
    
     @Column(name = "updated_at")
-    private Object updatedAt;
+    private Instant updatedAt;
    
     @Column(name = "updated_by")
     private String updatedBy;
@@ -50,11 +53,11 @@ public class DocumentEntity {
         this.id = id;
     }
 
-    public Object getDocUuid() {
+    public UUID getDocUuid() {
         return docUuid;
     }
 
-    public void setDocUuid(Object docUuid) {
+    public void setDocUuid(UUID docUuid) {
         this.docUuid = docUuid;
     }
 
@@ -98,11 +101,11 @@ public class DocumentEntity {
         this.content = content;
     }
 
-    public Object getCreatedAt() {
+    public Instant getCreatedAt() {
         return createdAt;
     }
 
-    public void setCreatedAt(Object createdAt) {
+    public void setCreatedAt(Instant createdAt) {
         this.createdAt = createdAt;
     }
 
@@ -114,11 +117,11 @@ public class DocumentEntity {
         this.createdBy = createdBy;
     }
 
-    public Object getUpdatedAt() {
+    public Instant getUpdatedAt() {
         return updatedAt;
     }
 
-    public void setUpdatedAt(Object updatedAt) {
+    public void setUpdatedAt(Instant updatedAt) {
         this.updatedAt = updatedAt;
     }
 

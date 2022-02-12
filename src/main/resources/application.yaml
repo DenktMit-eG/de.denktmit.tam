@@ -6,3 +6,9 @@ spring:
     password: supersecret
   jooq:
     sql-dialect: postgres
+  jpa:
+    open-in-view: false
+    show-sql: true
+    hibernate:
+      ddl-auto: validate
+      use-new-id-generator-mappings: true
