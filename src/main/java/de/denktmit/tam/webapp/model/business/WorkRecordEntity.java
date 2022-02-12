@@ -4,13 +4,14 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import java.time.Instant;
 
 @Entity
 @Table(name = "work_record")
 public class WorkRecordEntity {
 
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id")
     private long id;
    
@@ -27,12 +28,12 @@ public class WorkRecordEntity {
     @Column(name = "billing_month")
     @NotBlank
     private final Short billingMonth;
-   
-    @Column(name = "upload_date")
-    private Object uploadDate;
 
     //TODO: rename fk_
     //TODO: get Document Object instead of Integer
+    @Column(name = "upload_date")
+    private Instant uploadDate;
+
     @Column(name = "work_record_upload_id")
     private int workRecordUploadId;
 
@@ -82,11 +83,11 @@ public class WorkRecordEntity {
     }
 
 
-    public Object getUploadDate() {
+    public Instant getUploadDate() {
         return uploadDate;
     }
 
-    public void setUploadDate(Object uploadDate) {
+    public void setUploadDate(Instant uploadDate) {
         this.uploadDate = uploadDate;
     }
 

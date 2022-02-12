@@ -14,7 +14,7 @@ import java.util.Objects;
 public class ContractEntity {
 
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Column(name = "id")
     private long id;
 
