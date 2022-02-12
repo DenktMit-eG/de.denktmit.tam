@@ -1,0 +1,167 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<project name="tam" id="Project-ddb" database="PostgreSQL" >
+	<schema name="tam" >
+		<table name="billing_period" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="period_code" prior="name" type="integer" length="100" jt="4" mandatory="y" />
+			<column name="year" type="smallint" jt="5" mandatory="y" />
+			<column name="month" type="smallint" jt="5" mandatory="y" />
+			<index name="pk_billing_period" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="contract" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_cost_centre_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_project_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_contractor_id" prior="fk_user_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="rate_per_hour" type="integer" jt="4" />
+			<index name="pk_contract" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_contract_cost_centre" to_schema="tam" to_table="cost_centre" >
+				<fk_column name="fk_cost_centre_id" pk="id" />
+			</fk>
+			<fk name="fk_contract_project" to_schema="tam" to_table="project" >
+				<fk_column name="fk_project_id" pk="id" />
+			</fk>
+			<fk name="fk_contract_user" to_schema="tam" to_table="user" >
+				<fk_column name="fk_contractor_id" pk="id" />
+			</fk>
+		</table>
+		<table name="cost_centre" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="name" type="varchar" length="100" jt="12" />
+			<column name="description" type="varchar" jt="12" />
+			<column name="name_on_invoice" prior="name_on_invocie" type="varchar" length="100" jt="12" />
+			<index name="pk_cost_centre" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="credit_note" prior="credit" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="created_date" type="timestamptz" jt="93" mandatory="y" />
+			<column name="created_by_user" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_word_record_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="accounting_id" type="varchar" jt="12" />
+			<index name="pk_credit" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_credit_note_work_record" to_schema="tam" to_table="work_record" >
+				<fk_column name="fk_word_record_id" pk="id" />
+			</fk>
+			<fk name="fk_credit_note_user" to_schema="tam" to_table="user" >
+				<fk_column name="created_by_user" pk="id" />
+			</fk>
+		</table>
+		<table name="customer" prior="kunde" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="company" prior="unternehmen" type="bigserial" jt="-5" mandatory="y" />
+			<column name="contact_name" prior="name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="adress_country_iso_code" type="varchar" length="5" jt="12" mandatory="y" >
+				<comment><![CDATA[alpha 3 code]]></comment>
+			</column>
+			<column name="adress_zip" type="varchar" length="10" jt="12" mandatory="y" />
+			<column name="adress_street" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="adress_city" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_kunde" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="invoice" prior="billing" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="created_date" type="timestamptz" jt="93" mandatory="y" />
+			<column name="created_by_user" type="bigint" jt="-5" mandatory="y" />
+			<column name="amount" type="integer" jt="4" mandatory="y" />
+			<column name="fk_work_record_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="accounting_id" type="varchar" jt="12" />
+			<index name="pk_invoice" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_invoice_work_record" to_schema="tam" to_table="work_record" >
+				<fk_column name="fk_work_record_id" pk="id" />
+			</fk>
+			<fk name="fk_invoice_user" to_schema="tam" to_table="user" >
+				<fk_column name="created_by_user" pk="id" />
+			</fk>
+		</table>
+		<table name="project" prior="projekt" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_customer_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="project_code" prior="name" type="varchar" length="100" jt="12" mandatory="y" />
+			<column name="description" type="varchar" length="100" jt="12" mandatory="y" />
+			<index name="pk_project" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_project_customer" to_schema="tam" to_table="customer" >
+				<fk_column name="fk_customer_id" pk="id" />
+			</fk>
+		</table>
+		<table name="time_sheet_record" prior="tbl" >
+			<column name="id" type="bigserial" jt="-5" mandatory="y" />
+			<column name="begin" prior="record_begin" type="timestamptz" jt="93" mandatory="y" />
+			<column name="end" prior="record_end" type="timestamptz" jt="93" mandatory="y" />
+			<column name="description" type="varchar" length="4000" jt="12" mandatory="y" />
+			<column name="duration_hours" type="bigint" jt="-5" mandatory="y" />
+			<column name="work_record_id" prior="time_sheet_id" type="bigint" jt="-5" mandatory="y" />
+			<index name="pk_time_sheet_record" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_time_sheet_record_work_record" to_schema="tam" to_table="work_record" >
+				<fk_column name="work_record_id" pk="id" />
+			</fk>
+		</table>
+		<table name="user" prior="tbl" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="surname" type="varchar" length="100" jt="12" />
+			<column name="name" type="varchar" length="100" jt="12" />
+			<column name="displayname" type="varchar" length="100" jt="12" />
+			<column name="created_date" prior="date_created" type="timestamptz" jt="93" />
+			<column name="created_by" prior="created_by_user" type="varchar" jt="12" />
+			<column name="role" type="varchar" length="100" jt="12" />
+			<column name="adress_zip" type="varchar" length="10" jt="12" />
+			<column name="adress_street" type="varchar" length="100" jt="12" />
+			<column name="company_name" type="varchar" length="100" jt="12" />
+			<column name="adress_country_iso_code" type="varchar" length="5" jt="12" >
+				<comment><![CDATA[alpha 3 code]]></comment>
+			</column>
+			<column name="adress_city" type="varchar" length="100" jt="12" />
+			<index name="pk_tbl" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+		</table>
+		<table name="work_record" prior="work_statement" >
+			<column name="id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_billing_period_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_time_sheet_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="fk_contract_id" type="bigint" jt="-5" mandatory="y" />
+			<column name="upload_date" type="timestamptz" jt="93" mandatory="y" />
+			<index name="pk_work_record" unique="PRIMARY_KEY" >
+				<column name="id" />
+			</index>
+			<fk name="fk_work_record_billing_period" to_schema="tam" to_table="billing_period" >
+				<fk_column name="fk_billing_period_id" pk="id" />
+			</fk>
+			<fk name="fk_work_record_contract" to_schema="tam" to_table="contract" >
+				<fk_column name="fk_contract_id" pk="id" />
+			</fk>
+		</table>
+	</schema>
+	<layout name="Default Layout" id="Layout-954" show_relation="columns" >
+		<entity schema="tam" name="billing_period" color="C1D8EE" x="1248" y="160" />
+		<entity schema="tam" name="contract" color="C1D8EE" x="432" y="496" />
+		<entity schema="tam" name="cost_centre" color="C1D8EE" x="384" y="720" />
+		<entity schema="tam" name="credit_note" color="C1D8EE" x="976" y="448" />
+		<entity schema="tam" name="customer" color="C1D8EE" x="80" y="272" />
+		<entity schema="tam" name="invoice" color="C1D8EE" x="1232" y="384" />
+		<entity schema="tam" name="project" color="C1D8EE" x="384" y="288" />
+		<entity schema="tam" name="time_sheet_record" color="C1D8EE" x="720" y="48" />
+		<entity schema="tam" name="user" color="C1D8EE" x="832" y="640" />
+		<entity schema="tam" name="work_record" color="C1D8EE" x="688" y="288" />
+		<callout x="48" y="80" pointer="Round" >
+			<comment><![CDATA[DbSchema is disconnected from the database.
+New designed tables will be saved to project file and later can be create in any database.
+Right-click the layout to create new tables. Drop this callout from its context menu.]]></comment>
+		</callout>
+	</layout>
+</project>
