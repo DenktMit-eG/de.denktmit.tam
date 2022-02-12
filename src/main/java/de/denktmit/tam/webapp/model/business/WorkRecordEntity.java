@@ -5,6 +5,7 @@ import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import java.time.Instant;
+import java.util.Objects;
 
 @Entity
 @Table(name = "work_record")
@@ -16,7 +17,8 @@ public class WorkRecordEntity {
     private long id;
    
     @Column(name = "fk_contract_id")
-    private long fkContractId;
+    @NotBlank
+    private final Long fkContractId;
 
     @Column(name = "billing_year")
     @NotBlank
@@ -30,9 +32,11 @@ public class WorkRecordEntity {
     private final Short billingMonth;
 
     @Column(name = "upload_date")
-    private Instant uploadDate;
+    @NotBlank
+    private final Instant uploadDate;
 
     @Column(name = "work_record_upload_id")
+    @NotBlank
     private int workRecordUploadId; //TODO: rename fk_
 
     @Column(name = "credit_note_id")
@@ -42,13 +46,17 @@ public class WorkRecordEntity {
     private Integer invoiceId; //TODO: rename fk_
 
     private WorkRecordEntity() {
+        this.fkContractId = null;
         this.billingYear = null;
         this.billingMonth = null;
+        this.uploadDate = null;
     }
 
-    public WorkRecordEntity(short billingYear, short billingMonth) {
+    public WorkRecordEntity(Long fkContractId, short billingYear, short billingMonth, Instant uploadDate) {
+        this.fkContractId = fkContractId;
         this.billingYear = billingYear;
         this.billingMonth = billingMonth;
+        this.uploadDate = uploadDate;
     }
 
     public long getId() {
@@ -63,10 +71,6 @@ public class WorkRecordEntity {
         return fkContractId;
     }
 
-    public void setFkContractId(long fkContractId) {
-        this.fkContractId = fkContractId;
-    }
-
     public short getBillingYear() {
         return billingYear;
     }
@@ -79,10 +83,6 @@ public class WorkRecordEntity {
 
     public Instant getUploadDate() {
         return uploadDate;
-    }
-
-    public void setUploadDate(Instant uploadDate) {
-        this.uploadDate = uploadDate;
     }
 
     public int getWorkRecordUploadId() {
@@ -109,4 +109,16 @@ public class WorkRecordEntity {
         this.invoiceId = invoiceId;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof WorkRecordEntity)) return false;
+        WorkRecordEntity that = (WorkRecordEntity) o;
+        return Objects.equals(fkContractId, that.fkContractId) && Objects.equals(billingYear, that.billingYear) && Objects.equals(billingMonth, that.billingMonth) && Objects.equals(uploadDate, that.uploadDate);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(fkContractId, billingYear, billingMonth, uploadDate);
+    }
 }

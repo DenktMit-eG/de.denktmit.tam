@@ -1,6 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
@@ -12,12 +13,15 @@ public class UserEntity {
     private long id;
    
     @Column(name = "login_name")
-    private String loginName;
+    @NotBlank
+    private final String loginName;
    
     @Column(name = "login_password")
+    @NotBlank
     private String loginPassword;
    
     @Column(name = "role")
+    @NotBlank
     private String role;
    
     @Column(name = "company_name")
@@ -41,6 +45,14 @@ public class UserEntity {
     @Column(name = "adress_street")
     private String adressStreet;
 
+    public UserEntity() {
+        this.loginName = null;
+    }
+
+    public UserEntity(String loginName) {
+        this.loginName = loginName;
+    }
+
     public long getId() {
         return id;
     }
@@ -51,10 +63,6 @@ public class UserEntity {
 
     public String getLoginName() {
         return loginName;
-    }
-
-    public void setLoginName(String loginName) {
-        this.loginName = loginName;
     }
 
     public String getLoginPassword() {
@@ -129,5 +137,16 @@ public class UserEntity {
         this.adressStreet = adressStreet;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof UserEntity)) return false;
+        UserEntity that = (UserEntity) o;
+        return loginName.equals(that.loginName);
+    }
 
+    @Override
+    public int hashCode() {
+        return Objects.hash(loginName);
+    }
 }
