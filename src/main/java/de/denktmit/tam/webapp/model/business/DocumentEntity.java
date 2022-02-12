@@ -5,7 +5,7 @@ import java.util.Arrays;
 import java.util.Objects;
 
 @Entity
-@Table(name = "document", schema = "public", catalog = "postgres")
+@Table(name = "document")
 public class DocumentEntity {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Id

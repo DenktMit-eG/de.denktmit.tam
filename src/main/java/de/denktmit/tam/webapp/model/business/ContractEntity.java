@@ -8,7 +8,7 @@ import java.math.BigDecimal;
 import java.util.Objects;
 
 @Entity
-@Table(name = "contract", schema = "public", catalog = "postgres")
+@Table(name = "contract")
 public class ContractEntity {
 
     @GeneratedValue(strategy = GenerationType.IDENTITY)
