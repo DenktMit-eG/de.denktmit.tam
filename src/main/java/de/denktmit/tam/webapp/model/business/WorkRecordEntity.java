@@ -7,7 +7,7 @@ import java.time.Instant;
 @Table(name = "work_record")
 public class WorkRecordEntity {
 
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
     private long id;

@@ -9,7 +9,7 @@ import java.util.UUID;
 @Entity
 @Table(name = "document")
 public class DocumentEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
     private long id;

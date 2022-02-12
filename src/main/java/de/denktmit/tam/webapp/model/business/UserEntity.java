@@ -6,7 +6,7 @@ import java.util.Objects;
 @Entity
 @Table(name = "user")
 public class UserEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
     private long id;

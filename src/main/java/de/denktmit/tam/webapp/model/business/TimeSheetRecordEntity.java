@@ -6,7 +6,7 @@ import java.time.Instant;
 @Entity
 @Table(name = "time_sheet_record")
 public class TimeSheetRecordEntity {
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
     private long id;
