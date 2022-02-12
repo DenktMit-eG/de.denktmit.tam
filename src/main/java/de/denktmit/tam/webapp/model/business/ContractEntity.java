@@ -1,6 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
@@ -11,6 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "contract")
+@NaturalIdCache
 public class ContractEntity {
 
     @Id
@@ -24,15 +26,19 @@ public class ContractEntity {
     private final String code;
    
     @Column(name = "fk_cost_centre_id")
+    @NotBlank
     private long fkCostCentreId;
    
     @Column(name = "fk_project_id")
+    @NotBlank
     private long fkProjectId;
    
     @Column(name = "fk_contractor_id")
+    @NotBlank
     private long fkContractorId;
    
     @Column(name = "rate_per_hour")
+    @NotBlank
     @DecimalMin(value = "0", inclusive = false)
     private BigDecimal ratePerHour;
 

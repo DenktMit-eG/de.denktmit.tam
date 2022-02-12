@@ -1,11 +1,15 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
 @Table(name = "user")
+@NaturalIdCache
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -13,6 +17,7 @@ public class UserEntity {
     private long id;
    
     @Column(name = "login_name")
+    @NaturalId
     @NotBlank
     private final String loginName;
    
@@ -142,7 +147,7 @@ public class UserEntity {
         if (this == o) return true;
         if (!(o instanceof UserEntity)) return false;
         UserEntity that = (UserEntity) o;
-        return loginName.equals(that.loginName);
+        return Objects.equals(loginName, that.loginName);
     }
 
     @Override

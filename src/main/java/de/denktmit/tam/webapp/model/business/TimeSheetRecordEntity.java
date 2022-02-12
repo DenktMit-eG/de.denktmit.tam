@@ -1,5 +1,8 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +11,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "time_sheet_record")
+@NaturalIdCache
 public class TimeSheetRecordEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -16,10 +20,12 @@ public class TimeSheetRecordEntity {
    
     @Column(name = "work_record_id")
     @NotBlank
+    @NaturalId
     private final Long workRecordId;
    
     @Column(name = "position")
     @NotBlank
+    @NaturalId
     private final Short position;
    
     @Column(name = "begin")
