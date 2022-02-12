@@ -6,7 +6,7 @@ services:
     hostname: postgres-service
     network_mode: bridge
     environment:
-      - POSTGRES_USER=tam
+      - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=supersecret
       - POSTGRES_DB=application-db
     ports:
@@ -17,7 +17,7 @@ services:
     hostname: postgres-service
     network_mode: bridge
     environment:
-      - POSTGRES_USER=tam
+      - POSTGRES_USER=dbuser
       - POSTGRES_PASSWORD=supersecret
       - POSTGRES_DB=application-db
     ports:

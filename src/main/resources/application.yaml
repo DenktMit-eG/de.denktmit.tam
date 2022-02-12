@@ -2,7 +2,7 @@
 spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/application-db
-    username: tam
+    username: dbuser
     password: supersecret
   jooq:
     sql-dialect: postgres
