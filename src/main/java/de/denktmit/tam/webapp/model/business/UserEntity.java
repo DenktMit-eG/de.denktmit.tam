@@ -5,12 +5,12 @@ import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
-@Table(name = "user")
+@Table(name = "\"user\"")
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "login_name")
     @NotBlank
@@ -53,11 +53,11 @@ public class UserEntity {
         this.loginName = loginName;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

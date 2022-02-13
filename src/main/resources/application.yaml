@@ -7,8 +7,9 @@ spring:
   jooq:
     sql-dialect: postgres
   jpa:
-    open-in-view: false
-    show-sql: true
+    generate-ddl: false
     hibernate:
       ddl-auto: validate
       use-new-id-generator-mappings: true
+    open-in-view: false
+    show-sql: true
