@@ -1,5 +1,8 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
@@ -9,6 +12,7 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "work_record")
+@NaturalIdCache
 public class WorkRecordEntity {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
@@ -18,21 +22,25 @@ public class WorkRecordEntity {
    
     @Column(name = "fk_contract_id")
     @NotBlank
+    @NaturalId
     private final Long fkContractId;
 
     @Column(name = "billing_year")
     @NotBlank
+    @NaturalId
     @DecimalMin(value = "2020")
     private final Short billingYear;
 
-    @DecimalMin(value = "1")
-    @DecimalMax(value = "12")
     @Column(name = "billing_month")
     @NotBlank
+    @NaturalId
+    @DecimalMin(value = "1")
+    @DecimalMax(value = "12")
     private final Short billingMonth;
 
     @Column(name = "upload_date")
     @NotBlank
+    @NaturalId
     private final Instant uploadDate;
 
     @Column(name = "work_record_upload_id")

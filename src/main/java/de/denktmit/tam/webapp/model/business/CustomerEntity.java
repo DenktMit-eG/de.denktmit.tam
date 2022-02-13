@@ -1,10 +1,15 @@
 package de.denktmit.tam.webapp.model.business;
 
+import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
+
 import javax.persistence.*;
+import javax.validation.constraints.NotBlank;
 import java.util.Objects;
 
 @Entity
 @Table(name = "customer")
+@NaturalIdCache
 public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -12,22 +17,37 @@ public class CustomerEntity {
     private long id;
    
     @Column(name = "company_name")
-    private String companyName;
+    @NotBlank
+    @NaturalId
+    private final String companyName;
    
     @Column(name = "contact_name")
+    @NotBlank
     private String contactName;
    
     @Column(name = "adress_country_iso_code")
+    @NotBlank
     private String adressCountryIsoCode;
    
     @Column(name = "adress_zip")
+    @NotBlank
     private String adressZip;
    
     @Column(name = "adress_city")
+    @NotBlank
     private String adressCity;
    
     @Column(name = "adress_street")
+    @NotBlank
     private String adressStreet;
+
+    private CustomerEntity() {
+        this.companyName = null;
+    }
+
+    public CustomerEntity(String companyName) {
+        this.companyName = companyName;
+    }
 
     public long getId() {
         return id;
@@ -39,10 +59,6 @@ public class CustomerEntity {
 
     public String getCompanyName() {
         return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
     }
 
     public String getContactName() {
@@ -85,4 +101,16 @@ public class CustomerEntity {
         this.adressStreet = adressStreet;
     }
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (!(o instanceof CustomerEntity)) return false;
+        CustomerEntity that = (CustomerEntity) o;
+        return Objects.equals(companyName, that.companyName);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(companyName);
+    }
 }
