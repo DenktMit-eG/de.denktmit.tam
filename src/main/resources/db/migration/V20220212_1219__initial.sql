@@ -78,19 +78,20 @@ CREATE  TABLE work_record (
                               billing_year         smallint  NOT NULL  ,
                               billing_month        smallint  NOT NULL  ,
                               upload_date          timestamptz  NOT NULL  ,
-                              work_record_upload_id integer  NOT NULL  ,
-                              credit_note_id       integer    ,
-                              invoice_id           integer    ,
+                              fk_time_sheet_id        bigint    ,
+                              fk_credit_note_id       bigint    ,
+                              fk_invoice_id           bigint    ,
                               CONSTRAINT pk_work_record PRIMARY KEY ( id ),
-                              CONSTRAINT unq_work_record UNIQUE ( fk_contract_id, billing_year, billing_month, upload_date )
+                              CONSTRAINT unq_work_record UNIQUE ( fk_contract_id, billing_year, billing_month )
 );
 
 CREATE  TABLE time_sheet_record (
                                     id                   bigint  NOT NULL  ,
                                     work_record_id       bigint  NOT NULL  ,
                                     "position"           smallint  NOT NULL  ,
-                                    "begin"              timestamptz  NOT NULL  ,
-                                    "end"                timestamptz  NOT NULL  ,
+                                    "date"               date NOT NULL  ,
+                                    "beginning"          timestamptz  NOT NULL  ,
+                                    "ending"             timestamptz  NOT NULL  ,
                                     description          varchar(4000)  NOT NULL  ,
                                     duration_in_minutes  integer  NOT NULL  ,
                                     CONSTRAINT pk_time_sheet_record PRIMARY KEY ( id ),
@@ -109,11 +110,11 @@ ALTER TABLE time_sheet_record ADD CONSTRAINT fk_time_sheet_record_work_record FO
 
 ALTER TABLE work_record ADD CONSTRAINT fk_work_record_contract FOREIGN KEY ( fk_contract_id ) REFERENCES contract( id );
 
-ALTER TABLE work_record ADD CONSTRAINT fk_work_record_upload FOREIGN KEY ( work_record_upload_id ) REFERENCES document( id );
+ALTER TABLE work_record ADD CONSTRAINT fk_work_record_time_sheet FOREIGN KEY ( fk_time_sheet_id ) REFERENCES document( id );
 
-ALTER TABLE work_record ADD CONSTRAINT fk_work_record_credit_note FOREIGN KEY ( credit_note_id ) REFERENCES document( id );
+ALTER TABLE work_record ADD CONSTRAINT fk_work_record_credit_note FOREIGN KEY ( fk_credit_note_id ) REFERENCES document( id );
 
-ALTER TABLE work_record ADD CONSTRAINT fk_work_record_invoice FOREIGN KEY ( invoice_id ) REFERENCES document( id );
+ALTER TABLE work_record ADD CONSTRAINT fk_work_record_invoice FOREIGN KEY ( fk_invoice_id ) REFERENCES document( id );
 
 COMMENT ON COLUMN customer.adress_country_iso_code IS 'alpha 3 code';
 

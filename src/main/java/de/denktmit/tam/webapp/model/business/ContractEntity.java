@@ -18,7 +18,7 @@ public class ContractEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Column(name = "id")
-    private long id;
+    private Long id;
 
     @Column(name = "code")
     @NotBlank
@@ -26,19 +26,19 @@ public class ContractEntity {
     private final String code;
    
     @Column(name = "fk_cost_centre_id")
-    @NotBlank
-    private long fkCostCentreId;
+    @NotNull
+    private Long fkCostCentreId;
    
     @Column(name = "fk_project_id")
-    @NotBlank
-    private long fkProjectId;
+    @NotNull
+    private Long fkProjectId;
    
     @Column(name = "fk_contractor_id")
-    @NotBlank
-    private long fkContractorId;
+    @NotNull
+    private Long fkContractorId;
    
     @Column(name = "rate_per_hour")
-    @NotBlank
+    @NotNull
     @DecimalMin(value = "0", inclusive = false)
     private BigDecimal ratePerHour;
 
@@ -50,11 +50,11 @@ public class ContractEntity {
         this.code = Objects.requireNonNull(code);
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -62,27 +62,27 @@ public class ContractEntity {
         return code;
     }
 
-    public long getFkCostCentreId() {
+    public Long getFkCostCentreId() {
         return fkCostCentreId;
     }
 
-    public void setFkCostCentreId(long fkCostCentreId) {
+    public void setFkCostCentreId(Long fkCostCentreId) {
         this.fkCostCentreId = fkCostCentreId;
     }
 
-    public long getFkProjectId() {
+    public Long getFkProjectId() {
         return fkProjectId;
     }
 
-    public void setFkProjectId(long fkProjectId) {
+    public void setFkProjectId(Long fkProjectId) {
         this.fkProjectId = fkProjectId;
     }
 
-    public long getFkContractorId() {
+    public Long getFkContractorId() {
         return fkContractorId;
     }
 
-    public void setFkContractorId(long fkContractorId) {
+    public void setFkContractorId(Long fkContractorId) {
         this.fkContractorId = fkContractorId;
     }
 

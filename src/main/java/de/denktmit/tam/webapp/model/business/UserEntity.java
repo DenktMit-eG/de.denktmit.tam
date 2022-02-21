@@ -1,7 +1,6 @@
 package de.denktmit.tam.webapp.model.business;
 
 import org.hibernate.annotations.NaturalId;
-import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;

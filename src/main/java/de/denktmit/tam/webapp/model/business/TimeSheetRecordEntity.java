@@ -6,7 +6,9 @@ import org.hibernate.annotations.NaturalIdCache;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
+import java.time.LocalDate;
 import java.util.Objects;
 
 @Entity
@@ -16,32 +18,37 @@ public class TimeSheetRecordEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "work_record_id")
-    @NotBlank
+    @NotNull
     @NaturalId
     private final Long workRecordId;
    
     @Column(name = "position")
-    @NotBlank
+    @NotNull
     @NaturalId
     private final Short position;
+
+    @Column(name = "date")
+    @NotNull
+    private LocalDate date;
    
-    @Column(name = "begin")
-    @NotBlank
-    private Instant begin;
+    @Column(name = "beginning")
+    @NotNull
+    private Instant beginning;
    
-    @Column(name = "end")
-    @NotBlank //TODO: custom validator: end > begin
-    private Instant end;
+    @Column(name = "ending")
+    @NotNull
+    // type 'java.time.Instant' + custom validator: end > begin
+    private Instant ending;
    
     @Column(name = "description")
     @NotBlank
     private String description;
    
     @Column(name = "duration_in_minutes")
-    @NotBlank
+    @NotNull
     @DecimalMin(value = "0", inclusive = false)
     private int durationInMinutes;
 
@@ -55,36 +62,47 @@ public class TimeSheetRecordEntity {
         this.position = position;
     }
 
-    public long getId() {
+    public TimeSheetRecordEntity(Long workRecordId, Short position, LocalDate date, Instant begin, Instant end,
+                                 String description, int durationInMinutes) {
+        this.workRecordId = workRecordId;
+        this.position = position;
+        this.date = date;
+        this.beginning = begin;
+        this.ending = end;
+        this.description = description;
+        this.durationInMinutes = durationInMinutes;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getWorkRecordId() {
+    public Long getWorkRecordId() {
         return workRecordId;
     }
 
-    public short getPosition() {
+    public Short getPosition() {
         return position;
     }
 
-    public Instant getBegin() {
-        return begin;
+    public Instant getBeginning() {
+        return beginning;
     }
 
-    public void setBegin(Instant begin) {
-        this.begin = begin;
+    public void setBeginning(Instant begin) {
+        this.beginning = begin;
     }
 
-    public Instant getEnd() {
-        return end;
+    public Instant getEnding() {
+        return ending;
     }
 
-    public void setEnd(Instant end) {
-        this.end = end;
+    public void setEnding(Instant end) {
+        this.ending = end;
     }
 
     public String getDescription() {

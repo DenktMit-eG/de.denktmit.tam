@@ -6,6 +6,7 @@ import org.hibernate.annotations.Type;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Objects;
 import java.util.UUID;
@@ -17,11 +18,11 @@ public class DocumentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "doc_uuid")
     @Type(type="pg-uuid")
-    @NotBlank
+    @NotNull
     @NaturalId
     private final UUID docUuid;
    
@@ -42,11 +43,11 @@ public class DocumentEntity {
     private String fileType;
    
     @Column(name = "content")
-    @NotBlank
+    @NotNull
     private byte[] content;
    
     @Column(name = "created_at")
-    @NotBlank
+    @NotNull
     private Instant createdAt;
    
     @Column(name = "created_by")
@@ -54,7 +55,7 @@ public class DocumentEntity {
     private String createdBy;
    
     @Column(name = "updated_at")
-    @NotBlank
+    @NotNull
     private Instant updatedAt;
    
     @Column(name = "updated_by")
@@ -69,11 +70,24 @@ public class DocumentEntity {
         this.docUuid = docUuid;
     }
 
-    public long getId() {
+    public DocumentEntity(UUID docUuid, String name, String type, String externalIdentifier, String fileType, @NotNull byte[] content, Instant createdAt, String createdBy, Instant updatedAt, String updatedBy) {
+        this.docUuid = docUuid;
+        this.name = name;
+        this.type = type;
+        this.externalIdentifier = externalIdentifier;
+        this.fileType = fileType;
+        this.content = content;
+        this.createdAt = createdAt;
+        this.createdBy = createdBy;
+        this.updatedAt = updatedAt;
+        this.updatedBy = updatedBy;
+    }
+
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 

@@ -8,9 +8,11 @@ public final class Routes {
 
     public static final String HOME = "/";
     public static final String HOME_INDEX = "/index.html";
+    public static final String UPLOAD = "/upload";
     public static final String USERS = "/users";
     public static final String USER = USERS + "/{loginName}";
     public static final String ME = "/me";
-
+    public static final String REST = "/rest";
+    public static final String REST_UPLOAD = "/rest/upload";
 
 }

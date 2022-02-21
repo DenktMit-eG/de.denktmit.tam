@@ -5,6 +5,7 @@ import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.util.Objects;
 
 @Entity
@@ -14,7 +15,7 @@ public class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "name")
     @NotBlank
@@ -22,7 +23,7 @@ public class ProjectEntity {
     private final String name;
    
     @Column(name = "fk_customer_id")
-    @NotBlank
+    @NotNull
     private final Long fkCustomerId;
 
     private ProjectEntity() {
@@ -35,11 +36,11 @@ public class ProjectEntity {
         this.fkCustomerId = fkCustomerId;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
@@ -47,7 +48,7 @@ public class ProjectEntity {
         return name;
     }
 
-    public long getFkCustomerId() {
+    public Long getFkCustomerId() {
         return fkCustomerId;
     }
 

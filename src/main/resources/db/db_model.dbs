@@ -153,9 +153,9 @@
 			<column name="billing_year" type="smallint" length="5" decimal="0" jt="5" mandatory="y" />
 			<column name="billing_month" type="smallint" length="5" decimal="0" jt="5" mandatory="y" />
 			<column name="upload_date" type="timestamptz" decimal="6" jt="93" mandatory="y" />
-			<column name="work_record_upload_id" type="integer" length="10" decimal="0" jt="4" mandatory="y" />
-			<column name="credit_note_id" type="integer" length="10" decimal="0" jt="4" />
-			<column name="invoice_id" type="integer" length="10" decimal="0" jt="4" />
+			<column name="fk_time_sheet_id" prior="work_record_upload_id" type="integer" jt="4" />
+			<column name="fk_credit_note_id" prior="credit_note_id" type="integer" length="10" decimal="0" jt="4" />
+			<column name="fk_invoice_id" prior="invoice_id" type="integer" length="10" decimal="0" jt="4" />
 			<index name="pk_work_record" unique="PRIMARY_KEY" >
 				<column name="id" />
 			</index>
@@ -163,19 +163,18 @@
 				<column name="fk_contract_id" />
 				<column name="billing_year" />
 				<column name="billing_month" />
-				<column name="upload_date" />
 			</index>
 			<fk name="fk_work_record_contract" to_schema="public" to_table="contract" >
 				<fk_column name="fk_contract_id" pk="id" />
 			</fk>
 			<fk name="fk_work_record_credit_note" to_schema="public" to_table="document" >
-				<fk_column name="credit_note_id" pk="id" />
+				<fk_column name="fk_credit_note_id" pk="id" />
 			</fk>
 			<fk name="fk_work_record_invoice" to_schema="public" to_table="document" >
-				<fk_column name="invoice_id" pk="id" />
+				<fk_column name="fk_invoice_id" pk="id" />
 			</fk>
 			<fk name="fk_work_record_upload" to_schema="public" to_table="document" >
-				<fk_column name="work_record_upload_id" pk="id" />
+				<fk_column name="fk_time_sheet_id" pk="id" />
 			</fk>
 		</table>
 		<sequence name="seq_hibernate" options="START WITH 1 INCREMENT BY 50" />

@@ -6,7 +6,7 @@ import org.hibernate.annotations.NaturalIdCache;
 import javax.persistence.*;
 import javax.validation.constraints.DecimalMax;
 import javax.validation.constraints.DecimalMin;
-import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotNull;
 import java.time.Instant;
 import java.util.Objects;
 
@@ -18,40 +18,39 @@ public class WorkRecordEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "fk_contract_id")
-    @NotBlank
+    @NotNull
     @NaturalId
     private final Long fkContractId;
 
     @Column(name = "billing_year")
-    @NotBlank
+    @NotNull
     @NaturalId
     @DecimalMin(value = "2020")
     private final Short billingYear;
 
     @Column(name = "billing_month")
-    @NotBlank
+    @NotNull
     @NaturalId
     @DecimalMin(value = "1")
     @DecimalMax(value = "12")
     private final Short billingMonth;
 
     @Column(name = "upload_date")
-    @NotBlank
+    @NotNull
     @NaturalId
     private final Instant uploadDate;
 
-    @Column(name = "work_record_upload_id")
-    @NotBlank
-    private int workRecordUploadId; //TODO: rename fk_
+    @Column(name = "fk_time_sheet_id")
+    private Long fkTimeSheetId;
 
-    @Column(name = "credit_note_id")
-    private Integer creditNoteId; //TODO: rename fk_
+    @Column(name = "fk_credit_note_id")
+    private Long fkCreditNoteId;
 
-    @Column(name = "invoice_id")
-    private Integer invoiceId; //TODO: rename fk_
+    @Column(name = "fk_invoice_id")
+    private Long fkInvoiceId;
 
     private WorkRecordEntity() {
         this.fkContractId = null;
@@ -60,61 +59,59 @@ public class WorkRecordEntity {
         this.uploadDate = null;
     }
 
-    public WorkRecordEntity(Long fkContractId, short billingYear, short billingMonth, Instant uploadDate) {
+    public WorkRecordEntity(Long fkContractId, Short billingYear, Short billingMonth, Instant uploadDate) {
         this.fkContractId = fkContractId;
         this.billingYear = billingYear;
         this.billingMonth = billingMonth;
         this.uploadDate = uploadDate;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
-    public long getFkContractId() {
+    public Long getFkContractId() {
         return fkContractId;
     }
 
-    public short getBillingYear() {
+    public Short getBillingYear() {
         return billingYear;
     }
 
-
-    public short getBillingMonth() {
+    public Short getBillingMonth() {
         return billingMonth;
     }
-
 
     public Instant getUploadDate() {
         return uploadDate;
     }
 
-    public int getWorkRecordUploadId() {
-        return workRecordUploadId;
+    public Long getFkTimeSheetId() {
+        return fkTimeSheetId;
     }
 
-    public void setWorkRecordUploadId(int workRecordUploadId) {
-        this.workRecordUploadId = workRecordUploadId;
+    public void setFkTimeSheetId(Long fkTimeSheetId) {
+        this.fkTimeSheetId = fkTimeSheetId;
     }
 
-    public Integer getCreditNoteId() {
-        return creditNoteId;
+    public Long getFkCreditNoteId() {
+        return fkCreditNoteId;
     }
 
-    public void setCreditNoteId(Integer creditNoteId) {
-        this.creditNoteId = creditNoteId;
+    public void setFkCreditNoteId(Long creditNoteId) {
+        this.fkCreditNoteId = creditNoteId;
     }
 
-    public Integer getInvoiceId() {
-        return invoiceId;
+    public Long getFkInvoiceId() {
+        return fkInvoiceId;
     }
 
-    public void setInvoiceId(Integer invoiceId) {
-        this.invoiceId = invoiceId;
+    public void setFkInvoiceId(Long invoiceId) {
+        this.fkInvoiceId = invoiceId;
     }
 
     @Override
@@ -122,11 +119,12 @@ public class WorkRecordEntity {
         if (this == o) return true;
         if (!(o instanceof WorkRecordEntity)) return false;
         WorkRecordEntity that = (WorkRecordEntity) o;
-        return Objects.equals(fkContractId, that.fkContractId) && Objects.equals(billingYear, that.billingYear) && Objects.equals(billingMonth, that.billingMonth) && Objects.equals(uploadDate, that.uploadDate);
+        return Objects.equals(fkContractId, that.fkContractId) && Objects.equals(billingYear,
+                that.billingYear) && Objects.equals(billingMonth, that.billingMonth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fkContractId, billingYear, billingMonth, uploadDate);
+        return Objects.hash(fkContractId, billingYear, billingMonth);
     }
 }

@@ -14,7 +14,7 @@ public class CostCentreEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private long id;
+    private Long id;
    
     @Column(name = "code")
     @NotBlank
@@ -36,11 +36,11 @@ public class CostCentreEntity {
         this.code = code;
     }
 
-    public long getId() {
+    public Long getId() {
         return id;
     }
 
-    public void setId(long id) {
+    public void setId(Long id) {
         this.id = id;
     }
 
