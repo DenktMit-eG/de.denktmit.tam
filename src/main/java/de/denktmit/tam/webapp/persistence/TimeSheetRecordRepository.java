@@ -10,4 +10,6 @@ public interface TimeSheetRecordRepository extends CrudRepository<TimeSheetRecor
 
     Optional<TimeSheetRecordEntity> findByWorkRecordIdAndPosition(Long workRecordId, Short Position);
 
+    Long deleteByWorkRecordId(Long workRecordId);
+
 }
