@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -13,6 +15,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "contract")
 @NaturalIdCache
+@Getter
+@Setter
 public class ContractEntity {
 
     @Id
@@ -36,7 +40,8 @@ public class ContractEntity {
     @Column(name = "fk_contractor_id")
     @NotNull
     private Long fkContractorId;
-   
+
+    //TODO: cant do different rates for onsite and remote like without separating contracts
     @Column(name = "rate_per_hour")
     @NotNull
     @DecimalMin(value = "0", inclusive = false)
@@ -48,50 +53,6 @@ public class ContractEntity {
 
     public ContractEntity(String code) {
         this.code = Objects.requireNonNull(code);
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public Long getFkCostCentreId() {
-        return fkCostCentreId;
-    }
-
-    public void setFkCostCentreId(Long fkCostCentreId) {
-        this.fkCostCentreId = fkCostCentreId;
-    }
-
-    public Long getFkProjectId() {
-        return fkProjectId;
-    }
-
-    public void setFkProjectId(Long fkProjectId) {
-        this.fkProjectId = fkProjectId;
-    }
-
-    public Long getFkContractorId() {
-        return fkContractorId;
-    }
-
-    public void setFkContractorId(Long fkContractorId) {
-        this.fkContractorId = fkContractorId;
-    }
-
-    public BigDecimal getRatePerHour() {
-        return ratePerHour;
-    }
-
-    public void setRatePerHour(BigDecimal ratePerHour) {
-        this.ratePerHour = ratePerHour;
     }
 
     @Override

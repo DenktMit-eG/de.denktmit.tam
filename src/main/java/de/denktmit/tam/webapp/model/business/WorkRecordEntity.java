@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -13,6 +15,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "work_record")
 @NaturalIdCache
+@Getter
+@Setter
 public class WorkRecordEntity {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
@@ -64,54 +68,6 @@ public class WorkRecordEntity {
         this.billingYear = billingYear;
         this.billingMonth = billingMonth;
         this.uploadDate = uploadDate;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getFkContractId() {
-        return fkContractId;
-    }
-
-    public Short getBillingYear() {
-        return billingYear;
-    }
-
-    public Short getBillingMonth() {
-        return billingMonth;
-    }
-
-    public Instant getUploadDate() {
-        return uploadDate;
-    }
-
-    public Long getFkTimeSheetId() {
-        return fkTimeSheetId;
-    }
-
-    public void setFkTimeSheetId(Long fkTimeSheetId) {
-        this.fkTimeSheetId = fkTimeSheetId;
-    }
-
-    public Long getFkCreditNoteId() {
-        return fkCreditNoteId;
-    }
-
-    public void setFkCreditNoteId(Long creditNoteId) {
-        this.fkCreditNoteId = creditNoteId;
-    }
-
-    public Long getFkInvoiceId() {
-        return fkInvoiceId;
-    }
-
-    public void setFkInvoiceId(Long invoiceId) {
-        this.fkInvoiceId = invoiceId;
     }
 
     @Override

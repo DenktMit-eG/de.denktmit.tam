@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -10,6 +12,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "cost_centre")
 @NaturalIdCache
+@Getter
+@Setter
 public class CostCentreEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -34,34 +38,6 @@ public class CostCentreEntity {
 
     public CostCentreEntity(String code) {
         this.code = code;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCode() {
-        return code;
-    }
-
-    public String getNameOnInvoice() {
-        return nameOnInvoice;
-    }
-
-    public void setNameOnInvoice(String nameOnInvoice) {
-        this.nameOnInvoice = nameOnInvoice;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
     }
 
     @Override

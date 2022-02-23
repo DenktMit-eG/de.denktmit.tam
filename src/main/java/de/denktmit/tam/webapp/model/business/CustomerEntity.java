@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -10,6 +12,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "customer")
 @NaturalIdCache
+@Getter
+@Setter
 public class CustomerEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -47,58 +51,6 @@ public class CustomerEntity {
 
     public CustomerEntity(String companyName) {
         this.companyName = companyName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public String getContactName() {
-        return contactName;
-    }
-
-    public void setContactName(String contactName) {
-        this.contactName = contactName;
-    }
-
-    public String getAdressCountryIsoCode() {
-        return adressCountryIsoCode;
-    }
-
-    public void setAdressCountryIsoCode(String adressCountryIsoCode) {
-        this.adressCountryIsoCode = adressCountryIsoCode;
-    }
-
-    public String getAdressZip() {
-        return adressZip;
-    }
-
-    public void setAdressZip(String adressZip) {
-        this.adressZip = adressZip;
-    }
-
-    public String getAdressCity() {
-        return adressCity;
-    }
-
-    public void setAdressCity(String adressCity) {
-        this.adressCity = adressCity;
-    }
-
-    public String getAdressStreet() {
-        return adressStreet;
-    }
-
-    public void setAdressStreet(String adressStreet) {
-        this.adressStreet = adressStreet;
     }
 
     @Override

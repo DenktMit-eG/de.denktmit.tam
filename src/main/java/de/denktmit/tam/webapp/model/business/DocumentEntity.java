@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 import org.hibernate.annotations.Type;
@@ -14,6 +16,8 @@ import java.util.UUID;
 @Entity
 @Table(name = "document")
 @NaturalIdCache
+@Getter
+@Setter
 public class DocumentEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -70,7 +74,8 @@ public class DocumentEntity {
         this.docUuid = docUuid;
     }
 
-    public DocumentEntity(UUID docUuid, String name, String type, String externalIdentifier, String fileType, @NotNull byte[] content, Instant createdAt, String createdBy, Instant updatedAt, String updatedBy) {
+    public DocumentEntity(UUID docUuid, String name, String type, String externalIdentifier, String fileType,
+                          @NotNull byte[] content, Instant createdAt, String createdBy, Instant updatedAt, String updatedBy) {
         this.docUuid = docUuid;
         this.name = name;
         this.type = type;
@@ -80,90 +85,6 @@ public class DocumentEntity {
         this.createdAt = createdAt;
         this.createdBy = createdBy;
         this.updatedAt = updatedAt;
-        this.updatedBy = updatedBy;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public UUID getDocUuid() {
-        return docUuid;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getType() {
-        return type;
-    }
-
-    public void setType(String type) {
-        this.type = type;
-    }
-
-    public String getExternalIdentifier() {
-        return externalIdentifier;
-    }
-
-    public void setExternalIdentifier(String externalIdentifier) {
-        this.externalIdentifier = externalIdentifier;
-    }
-
-    public String getFileType() {
-        return fileType;
-    }
-
-    public void setFileType(String fileType) {
-        this.fileType = fileType;
-    }
-
-    public byte[] getContent() {
-        return content;
-    }
-
-    public void setContent(byte[] content) {
-        this.content = content;
-    }
-
-    public Instant getCreatedAt() {
-        return createdAt;
-    }
-
-    public void setCreatedAt(Instant createdAt) {
-        this.createdAt = createdAt;
-    }
-
-    public String getCreatedBy() {
-        return createdBy;
-    }
-
-    public void setCreatedBy(String createdBy) {
-        this.createdBy = createdBy;
-    }
-
-    public Instant getUpdatedAt() {
-        return updatedAt;
-    }
-
-    public void setUpdatedAt(Instant updatedAt) {
-        this.updatedAt = updatedAt;
-    }
-
-    public String getUpdatedBy() {
-        return updatedBy;
-    }
-
-    public void setUpdatedBy(String updatedBy) {
         this.updatedBy = updatedBy;
     }
 

@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -11,6 +13,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "project")
 @NaturalIdCache
+@Getter
+@Setter
 public class ProjectEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -34,22 +38,6 @@ public class ProjectEntity {
     public ProjectEntity(String name, Long fkCustomerId) {
         this.name = name;
         this.fkCustomerId = fkCustomerId;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public Long getFkCustomerId() {
-        return fkCustomerId;
     }
 
     @Override

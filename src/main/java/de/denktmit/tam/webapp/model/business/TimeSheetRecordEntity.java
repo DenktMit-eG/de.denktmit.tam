@@ -1,5 +1,7 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
 import org.hibernate.annotations.NaturalIdCache;
 
@@ -14,6 +16,8 @@ import java.util.Objects;
 @Entity
 @Table(name = "time_sheet_record")
 @NaturalIdCache
+@Getter
+@Setter
 public class TimeSheetRecordEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -33,7 +37,9 @@ public class TimeSheetRecordEntity {
     @Column(name = "date")
     @NotNull
     private LocalDate date;
-   
+
+    // TODO: either let end and begin be a date with time or make this smarter, because we cant go from 10:00 to 02:00
+    //  like this
     @Column(name = "beginning")
     @NotNull
     private Instant beginning;
@@ -70,54 +76,6 @@ public class TimeSheetRecordEntity {
         this.beginning = begin;
         this.ending = end;
         this.description = description;
-        this.durationInMinutes = durationInMinutes;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public Long getWorkRecordId() {
-        return workRecordId;
-    }
-
-    public Short getPosition() {
-        return position;
-    }
-
-    public Instant getBeginning() {
-        return beginning;
-    }
-
-    public void setBeginning(Instant begin) {
-        this.beginning = begin;
-    }
-
-    public Instant getEnding() {
-        return ending;
-    }
-
-    public void setEnding(Instant end) {
-        this.ending = end;
-    }
-
-    public String getDescription() {
-        return description;
-    }
-
-    public void setDescription(String description) {
-        this.description = description;
-    }
-
-    public int getDurationInMinutes() {
-        return durationInMinutes;
-    }
-
-    public void setDurationInMinutes(int durationInMinutes) {
         this.durationInMinutes = durationInMinutes;
     }
 

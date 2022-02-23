@@ -1,6 +1,9 @@
 package de.denktmit.tam.webapp.model.business;
 
+import lombok.Getter;
+import lombok.Setter;
 import org.hibernate.annotations.NaturalId;
+import org.hibernate.annotations.NaturalIdCache;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
@@ -8,6 +11,9 @@ import java.util.Objects;
 
 @Entity
 @Table(name = "\"user\"")
+@NaturalIdCache
+@Getter
+@Setter
 public class UserEntity {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
@@ -54,90 +60,6 @@ public class UserEntity {
 
     public UserEntity(String loginName) {
         this.loginName = loginName;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public String getLoginName() {
-        return loginName;
-    }
-
-    public String getLoginPassword() {
-        return loginPassword;
-    }
-
-    public void setLoginPassword(String loginPassword) {
-        this.loginPassword = loginPassword;
-    }
-
-    public String getRole() {
-        return role;
-    }
-
-    public void setRole(String role) {
-        this.role = role;
-    }
-
-    public String getCompanyName() {
-        return companyName;
-    }
-
-    public void setCompanyName(String companyName) {
-        this.companyName = companyName;
-    }
-
-    public String getSurname() {
-        return surname;
-    }
-
-    public void setSurname(String surname) {
-        this.surname = surname;
-    }
-
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public String getAdressCountryIsoCode() {
-        return adressCountryIsoCode;
-    }
-
-    public void setAdressCountryIsoCode(String adressCountryIsoCode) {
-        this.adressCountryIsoCode = adressCountryIsoCode;
-    }
-
-    public String getAdressZip() {
-        return adressZip;
-    }
-
-    public void setAdressZip(String adressZip) {
-        this.adressZip = adressZip;
-    }
-
-    public String getAdressCity() {
-        return adressCity;
-    }
-
-    public void setAdressCity(String adressCity) {
-        this.adressCity = adressCity;
-    }
-
-    public String getAdressStreet() {
-        return adressStreet;
-    }
-
-    public void setAdressStreet(String adressStreet) {
-        this.adressStreet = adressStreet;
     }
 
     @Override
