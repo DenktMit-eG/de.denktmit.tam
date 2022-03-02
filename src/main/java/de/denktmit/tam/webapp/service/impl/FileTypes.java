@@ -1,4 +1,4 @@
-package de.denktmit.tam.webapp.service;
+package de.denktmit.tam.webapp.service.impl;
 
 public record FileTypes() {
 

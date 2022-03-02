@@ -14,7 +14,7 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class CustomerEntity {
+public class CustomerEntity extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
@@ -29,21 +29,23 @@ public class CustomerEntity {
     @NotBlank
     private String contactName;
    
-    @Column(name = "adress_country_iso_code")
+    @Column(name = "address_country_iso_code")
     @NotBlank
-    private String adressCountryIsoCode;
+    private String addressCountryIsoCode;
    
-    @Column(name = "adress_zip")
+    @Column(name = "address_zip")
     @NotBlank
-    private String adressZip;
+    private String addressZip;
    
-    @Column(name = "adress_city")
+    @Column(name = "address_city")
     @NotBlank
-    private String adressCity;
+    private String addressCity;
    
-    @Column(name = "adress_street")
+    @Column(name = "address_street")
     @NotBlank
-    private String adressStreet;
+    private String addressStreet;
+
+    private String createdBy;
 
     private CustomerEntity() {
         this.companyName = null;

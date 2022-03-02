@@ -1,0 +1,32 @@
+<!DOCTYPE html>
+<html>
+    <head xmlns:th="http://www.thymeleaf.org">
+        <title>DenktMit TAM</title>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+    </head>
+
+    <body>
+        <table>
+            <tr>
+                <th>ID</th>
+                <th>Unternehmen</th>
+                <th>Kontaktperson</th>
+                <th>Ländercode</th>
+                <th>PLZ</th>
+                <th>Stadt</th>
+                <th>Straße und Hausnummer</th>
+            </tr>
+            <tr th:each="customer : ${customers}">
+                <td th:text="${customer.id}">id</td>
+                <td th:text="${customer.companyName}">companyName</td>
+                <td th:text="${customer.contactName}">contactName</td>
+                <td th:text="${customer.addressCountryIsoCode}">addressCountryIsoCode</td>
+                <td th:text="${customer.addressZip}">addressZip</td>
+                <td th:text="${customer.addressCity}">addressCity</td>
+                <td th:text="${customer.addressStreet}">addressStreet</td>
+            </tr>
+        </table>
+        <a href="/">zurück</a>
+    </body>
+</html>

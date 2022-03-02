@@ -1,4 +1,4 @@
-package de.denktmit.tam.webapp.web;
+package de.denktmit.tam.webapp.web.model;
 
 public class RegistrationFormModel {
 

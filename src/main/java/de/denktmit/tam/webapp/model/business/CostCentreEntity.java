@@ -14,7 +14,7 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class CostCentreEntity {
+public class CostCentreEntity extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")

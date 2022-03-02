@@ -1,8 +1,8 @@
 version: "3.9"
 services:
-  postgres:
+  postgres-it:
     image: "postgres:14.2"
-    container_name: "tam-pg"
+    container_name: "tam-pg-it"
     hostname: postgres-service
     network_mode: bridge
     environment:
@@ -10,4 +10,4 @@ services:
       - POSTGRES_PASSWORD=supersecret
       - POSTGRES_DB=application-db
     ports:
-      - "5432:5432"
+      - "25432:5432"

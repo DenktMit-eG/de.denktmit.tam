@@ -1,5 +1,6 @@
-package de.denktmit.tam.webapp.web;
+package de.denktmit.tam.webapp.web.controller;
 
+import de.denktmit.tam.webapp.web.Routes;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.security.core.Authentication;

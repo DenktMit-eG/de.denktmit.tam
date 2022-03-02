@@ -17,17 +17,18 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class WorkRecordEntity {
+public class WorkRecordEntity extends Auditable<String> {
 
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
-    private Long id;
+    private java.lang.Long id;
    
-    @Column(name = "fk_contract_id")
+    @JoinColumn(name = "fk_contract_id")
+    @ManyToOne
     @NotNull
     @NaturalId
-    private final Long fkContractId;
+    private final ContractEntity contract;
 
     @Column(name = "billing_year")
     @NotNull
@@ -47,24 +48,27 @@ public class WorkRecordEntity {
     @NaturalId
     private final Instant uploadDate;
 
-    @Column(name = "fk_time_sheet_id")
-    private Long fkTimeSheetId;
+    @JoinColumn(name = "fk_time_sheet_id")
+    @OneToOne
+    private DocumentEntity timeSheet;
 
-    @Column(name = "fk_credit_note_id")
-    private Long fkCreditNoteId;
+    @JoinColumn(name = "fk_credit_note_id")
+    @OneToOne
+    private DocumentEntity creditNote;
 
-    @Column(name = "fk_invoice_id")
-    private Long fkInvoiceId;
+    @JoinColumn(name = "fk_invoice_id")
+    @OneToOne
+    private DocumentEntity invoice;
 
     private WorkRecordEntity() {
-        this.fkContractId = null;
+        this.contract = null;
         this.billingYear = null;
         this.billingMonth = null;
         this.uploadDate = null;
     }
 
-    public WorkRecordEntity(Long fkContractId, Short billingYear, Short billingMonth, Instant uploadDate) {
-        this.fkContractId = fkContractId;
+    public WorkRecordEntity(ContractEntity contract, Short billingYear, Short billingMonth, Instant uploadDate) {
+        this.contract = contract;
         this.billingYear = billingYear;
         this.billingMonth = billingMonth;
         this.uploadDate = uploadDate;
@@ -75,12 +79,12 @@ public class WorkRecordEntity {
         if (this == o) return true;
         if (!(o instanceof WorkRecordEntity)) return false;
         WorkRecordEntity that = (WorkRecordEntity) o;
-        return Objects.equals(fkContractId, that.fkContractId) && Objects.equals(billingYear,
+        return Objects.equals(contract, that.contract) && Objects.equals(billingYear,
                 that.billingYear) && Objects.equals(billingMonth, that.billingMonth);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(fkContractId, billingYear, billingMonth);
+        return Objects.hash(contract, billingYear, billingMonth);
     }
 }

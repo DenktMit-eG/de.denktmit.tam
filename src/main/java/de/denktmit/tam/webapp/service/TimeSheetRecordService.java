@@ -1,14 +1,18 @@
 package de.denktmit.tam.webapp.service;
 
+import com.opencsv.exceptions.CsvValidationException;
 import de.denktmit.tam.webapp.model.business.TimeSheetRecordEntity;
-import org.springframework.stereotype.Component;
+import de.denktmit.tam.webapp.model.business.WorkRecordEntity;
+import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-@Component
+@Service
 public interface TimeSheetRecordService {
+    List<TimeSheetRecordEntity> findAllByWorkRecordId(Long workRecordId);
+
     TimeSheetRecordEntity save(TimeSheetRecordEntity timeSheetRecordEntity);
 
     List<TimeSheetRecordEntity> saveAll(List<TimeSheetRecordEntity> timeSheetRecordEntityList);
@@ -16,5 +20,9 @@ public interface TimeSheetRecordService {
     Long deleteByWorkRecordId(Long workRecordId);
 
     List<TimeSheetRecordEntity> convertFilestreamToTimeSheetRecordEntities(InputStream inputStream,
-                                                                           Long workRecordId) throws IOException;
+                                                                           WorkRecordEntity workRecord) throws
+            IOException, CsvValidationException;
+
+    List<TimeSheetRecordEntity> replaceByWorkRecordId(Long workRecordId, List<TimeSheetRecordEntity> timeSheetRecordList);
+
 }

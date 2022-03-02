@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <title></title>
+</head>
+<body>
+    <p th:text="${message}"/>
+    <p th:text="${fileUpload}"/>
+    <p th:text="${workRecordSelection}"/>
+
+    <table>
+        <tr>
+            <th>ID</th>
+            <th>Work Record ID</th>
+            <th>Date</th>
+            <th>Begin</th>
+            <th>End</th>
+            <th>Description</th>
+            <th>Duration(Minutes)</th>
+        </tr>
+        <tr th:each="record : ${records}">
+            <td th:text="${record.id}">id</td>
+            <td th:text="${record.workRecord.id}">workrecordid</td>
+            <td th:text="${record.date}">date</td>
+            <td th:text="${record.beginning}">beginning</td>
+            <td th:text="${record.ending}">ending</td>
+            <td th:text="${record.description}">description</td>
+            <td th:text="${record.durationInMinutes}">durationInMinutes</td>
+        </tr>
+    </table>
+
+    <a href="/">zurück</a>
+</body>
+</html>

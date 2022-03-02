@@ -15,7 +15,7 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class ProjectEntity {
+public class ProjectEntity extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
@@ -26,18 +26,19 @@ public class ProjectEntity {
     @NaturalId
     private final String name;
    
-    @Column(name = "fk_customer_id")
+    @JoinColumn(name = "fk_customer_id")
+    @ManyToOne
     @NotNull
-    private final Long fkCustomerId;
+    private final CustomerEntity customer;
 
     private ProjectEntity() {
-        this.fkCustomerId = null;
+        this.customer = null;
         this.name = null;
     }
 
-    public ProjectEntity(String name, Long fkCustomerId) {
+    public ProjectEntity(String name, CustomerEntity customer) {
         this.name = name;
-        this.fkCustomerId = fkCustomerId;
+        this.customer = customer;
     }
 
     @Override

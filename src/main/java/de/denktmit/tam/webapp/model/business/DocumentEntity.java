@@ -18,7 +18,7 @@ import java.util.UUID;
 @NaturalIdCache
 @Getter
 @Setter
-public class DocumentEntity {
+public class DocumentEntity extends Auditable<String>{
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
@@ -49,22 +49,6 @@ public class DocumentEntity {
     @Column(name = "content")
     @NotNull
     private byte[] content;
-   
-    @Column(name = "created_at")
-    @NotNull
-    private Instant createdAt;
-   
-    @Column(name = "created_by")
-    @NotBlank
-    private String createdBy;
-   
-    @Column(name = "updated_at")
-    @NotNull
-    private Instant updatedAt;
-   
-    @Column(name = "updated_by")
-    @NotBlank
-    private String updatedBy;
 
     private DocumentEntity() {
         this.docUuid = null;
@@ -75,17 +59,13 @@ public class DocumentEntity {
     }
 
     public DocumentEntity(UUID docUuid, String name, String type, String externalIdentifier, String fileType,
-                          @NotNull byte[] content, Instant createdAt, String createdBy, Instant updatedAt, String updatedBy) {
+                          @NotNull byte[] content) {
         this.docUuid = docUuid;
         this.name = name;
         this.type = type;
         this.externalIdentifier = externalIdentifier;
         this.fileType = fileType;
         this.content = content;
-        this.createdAt = createdAt;
-        this.createdBy = createdBy;
-        this.updatedAt = updatedAt;
-        this.updatedBy = updatedBy;
     }
 
     @Override

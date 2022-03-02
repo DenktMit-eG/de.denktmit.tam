@@ -20,20 +20,30 @@
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <skip.reports.jacoco>false</skip.reports.jacoco>
+        <version.com.dkanejs.maven.plugins>2.4.0</version.com.dkanejs.maven.plugins>
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>3.0.1</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
+        <version.com.opencsv>5.5.2</version.com.opencsv>
+        <version.maven.compiler.plugin>3.10.0</version.maven.compiler.plugin>
         <version.org.apache.maven.plugins.maven-failsafe-plugin>3.0.0-M5</version.org.apache.maven.plugins.maven-failsafe-plugin>
         <version.org.apache.maven.plugins.maven-surefire-plugin>3.0.0-M5</version.org.apache.maven.plugins.maven-surefire-plugin>
+        <version.org.flyway>8.5.0</version.org.flyway>
         <version.org.jacoco.jacoco-maven-plugin>0.8.7</version.org.jacoco.jacoco-maven-plugin>
+        <version.org.mapstruct>1.4.2.Final</version.org.mapstruct>
+        <version.org.projectlombok>1.18.22</version.org.projectlombok>
+        <version.org.projectlombok.mapstruct-lombok-binding>0.2.0</version.org.projectlombok.mapstruct-lombok-binding>
+        <version.org.webjars.bootstrap>4.0.0-2</version.org.webjars.bootstrap>
+        <version.org.webjars.webjars-locator>0.30</version.org.webjars.webjars-locator>
     </properties>
     <dependencies>
         <dependency>
             <groupId>com.opencsv</groupId>
             <artifactId>opencsv</artifactId>
-            <version>4.1</version>
+            <version>${version.com.opencsv}</version>
         </dependency>
         <dependency>
             <groupId>org.flywaydb</groupId>
             <artifactId>flyway-core</artifactId>
+            <version>${version.org.flyway}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>
@@ -77,9 +87,31 @@
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>bootstrap</artifactId>
+            <version>${version.org.webjars.bootstrap}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.webjars</groupId>
+            <artifactId>webjars-locator</artifactId>
+            <version>${version.org.webjars.webjars-locator}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${version.org.mapstruct}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
-            <version>1.18.22</version>
+            <version>${version.org.projectlombok}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>
             <scope>provided</scope>
         </dependency>
         <dependency>
@@ -90,6 +122,7 @@
         <dependency>
             <groupId>org.postgresql</groupId>
             <artifactId>postgresql</artifactId>
+            <version>42.3.2</version>
             <scope>runtime</scope>
         </dependency>
         <dependency>
@@ -240,6 +273,36 @@
                         </execution>
                     </executions>
                 </plugin>
+                <plugin>
+                    <groupId>com.dkanejs.maven.plugins</groupId>
+                    <artifactId>docker-compose-maven-plugin</artifactId>
+                    <version>${version.com.dkanejs.maven.plugins}</version>
+                    <executions>
+                        <execution>
+                            <id>up</id>
+                            <goals>
+                                <goal>down</goal>
+                                <goal>up</goal>
+                            </goals>
+                            <phase>pre-integration-test</phase>
+                            <configuration>
+                                <composeFile>${project.basedir}/docker-compose-IT.yaml</composeFile>
+                                <detachedMode>true</detachedMode>
+                            </configuration>
+                        </execution>
+                        <execution>
+                            <id>down</id>
+                            <goals>
+                                <goal>down</goal>
+                            </goals>
+                            <phase>post-integration-test</phase>
+                            <configuration>
+                                <composeFile>${project.basedir}/docker-compose-IT.yaml</composeFile>
+                                <removeVolumes>true</removeVolumes>
+                            </configuration>
+                        </execution>
+                    </executions>
+                </plugin>
             </plugins>
         </pluginManagement>
         <plugins>
@@ -258,6 +321,36 @@
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>com.dkanejs.maven.plugins</groupId>
+                <artifactId>docker-compose-maven-plugin</artifactId>
+            </plugin>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-compiler-plugin</artifactId>
+                <version>${version.maven.compiler.plugin}</version>
+                <configuration>
+                    <source>${java.version}</source>
+                    <target>${java.version}</target>
+                    <annotationProcessorPaths>
+                        <path>
+                            <groupId>org.mapstruct</groupId>
+                            <artifactId>mapstruct-processor</artifactId>
+                            <version>${version.org.mapstruct}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${version.org.projectlombok}</version>
+                        </path>
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok-mapstruct-binding</artifactId>
+                            <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>
+                        </path>
+                    </annotationProcessorPaths>
+                </configuration>
             </plugin>
         </plugins>
     </build>

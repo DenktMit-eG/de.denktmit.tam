@@ -9,6 +9,7 @@ import javax.persistence.*;
 import javax.validation.constraints.DecimalMin;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
+import java.math.BigDecimal;
 import java.time.Instant;
 import java.time.LocalDate;
 import java.util.Objects;
@@ -18,16 +19,17 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class TimeSheetRecordEntity {
+public class TimeSheetRecordEntity extends Auditable<String> {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
     @Id
     @Column(name = "id")
     private Long id;
    
-    @Column(name = "work_record_id")
+    @JoinColumn(name = "work_record_id")
+    @ManyToOne
     @NotNull
     @NaturalId
-    private final Long workRecordId;
+    private final WorkRecordEntity workRecord;
    
     @Column(name = "position")
     @NotNull
@@ -38,8 +40,6 @@ public class TimeSheetRecordEntity {
     @NotNull
     private LocalDate date;
 
-    // TODO: either let end and begin be a date with time or make this smarter, because we cant go from 10:00 to 02:00
-    //  like this
     @Column(name = "beginning")
     @NotNull
     private Instant beginning;
@@ -58,25 +58,31 @@ public class TimeSheetRecordEntity {
     @DecimalMin(value = "0", inclusive = false)
     private int durationInMinutes;
 
+    @Column(name = "rate_per_hour")
+    @NotNull
+    @DecimalMin(value = "0", inclusive = true)
+    private BigDecimal ratePerHour;
+
     private TimeSheetRecordEntity() {
-        this.workRecordId = null;
+        this.workRecord = null;
         this.position = null;
     }
 
-    public TimeSheetRecordEntity(Long workRecordId, Short position) {
-        this.workRecordId = workRecordId;
+    public TimeSheetRecordEntity(WorkRecordEntity workRecord, Short position) {
+        this.workRecord = workRecord;
         this.position = position;
     }
 
-    public TimeSheetRecordEntity(Long workRecordId, Short position, LocalDate date, Instant begin, Instant end,
-                                 String description, int durationInMinutes) {
-        this.workRecordId = workRecordId;
+    public TimeSheetRecordEntity(WorkRecordEntity workRecord, Short position, LocalDate date, Instant begin, Instant end,
+                                 String description, int durationInMinutes, BigDecimal ratePerHour) {
+        this.workRecord = workRecord;
         this.position = position;
         this.date = date;
         this.beginning = begin;
         this.ending = end;
         this.description = description;
         this.durationInMinutes = durationInMinutes;
+        this.ratePerHour = ratePerHour;
     }
 
     @Override
@@ -84,11 +90,11 @@ public class TimeSheetRecordEntity {
         if (this == o) return true;
         if (!(o instanceof TimeSheetRecordEntity)) return false;
         TimeSheetRecordEntity that = (TimeSheetRecordEntity) o;
-        return Objects.equals(workRecordId, that.workRecordId) && Objects.equals(position, that.position);
+        return Objects.equals(workRecord, that.workRecord) && Objects.equals(position, that.position);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(workRecordId, position);
+        return Objects.hash(workRecord, position);
     }
 }

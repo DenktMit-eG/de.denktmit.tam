@@ -1,6 +1,6 @@
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:15432/application-db
+    url: jdbc:postgresql://localhost:25432/application-db
     username: dbuser
     password: supersecret
   jooq:
@@ -13,7 +13,6 @@ spring:
     open-in-view: false
     show-sql: true
   thymeleaf:
-    cache: false
     check-template-location: true
     prefix: file:./src/main/resources/templates/
     flyway:

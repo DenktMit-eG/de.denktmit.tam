@@ -17,7 +17,7 @@ import java.util.Objects;
 @NaturalIdCache
 @Getter
 @Setter
-public class ContractEntity {
+public class ContractEntity extends Auditable<String> {
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "seq_hibernate")
@@ -29,23 +29,20 @@ public class ContractEntity {
     @NaturalId
     private final String code;
    
-    @Column(name = "fk_cost_centre_id")
+    @JoinColumn(name = "fk_cost_centre_id")
+    @ManyToOne
     @NotNull
-    private Long fkCostCentreId;
+    private CostCentreEntity costCentre;
    
-    @Column(name = "fk_project_id")
+    @JoinColumn(name = "fk_project_id")
+    @ManyToOne
     @NotNull
-    private Long fkProjectId;
+    private ProjectEntity project;
    
-    @Column(name = "fk_contractor_id")
+    @JoinColumn(name = "fk_contractor_id")
+    @ManyToOne
     @NotNull
-    private Long fkContractorId;
-
-    //TODO: cant do different rates for onsite and remote like without separating contracts
-    @Column(name = "rate_per_hour")
-    @NotNull
-    @DecimalMin(value = "0", inclusive = false)
-    private BigDecimal ratePerHour;
+    private UserEntity contractor;
 
     private ContractEntity() {
         code = null;

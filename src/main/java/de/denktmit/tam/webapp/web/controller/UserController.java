@@ -1,6 +1,7 @@
-package de.denktmit.tam.webapp.web;
+package de.denktmit.tam.webapp.web.controller;
 
 import de.denktmit.tam.webapp.persistence.UserRepository;
+import de.denktmit.tam.webapp.web.Routes;
 import org.springframework.http.MediaType;
 import org.springframework.stereotype.Controller;
 import org.springframework.stereotype.Repository;

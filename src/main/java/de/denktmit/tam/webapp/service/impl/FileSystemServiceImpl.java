@@ -1,5 +1,6 @@
-package de.denktmit.tam.webapp.service;
+package de.denktmit.tam.webapp.service.impl;
 
+import de.denktmit.tam.webapp.service.FileSystemService;
 import de.denktmit.tam.webapp.web.Directories;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
