@@ -7,7 +7,6 @@ import org.springframework.data.annotation.LastModifiedBy;
 import org.springframework.data.annotation.LastModifiedDate;
 import org.springframework.data.jpa.domain.support.AuditingEntityListener;
 
-import javax.persistence.Basic;
 import javax.persistence.Column;
 import javax.persistence.EntityListeners;
 import javax.persistence.MappedSuperclass;
@@ -18,11 +17,11 @@ import java.time.Instant;
 abstract class Auditable<U> {
 
     @CreatedBy
-    @Column(name = "created_by")
+    @Column(name = "created_by", nullable = false, updatable = false)
     protected U createdBy;
 
     @CreatedDate
-    @Column(name = "creation_date")
+    @Column(name = "creation_date", nullable = false, updatable = false)
     protected Instant creationDate;
 
     @LastModifiedBy

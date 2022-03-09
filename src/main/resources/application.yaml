@@ -13,4 +13,6 @@ spring:
     open-in-view: false
     show-sql: false
   flyway:
-    locations: classpath:/db/migration,classpath:/db/testdata
+    locations: classpath:/db/migration
+tamwebapp:
+  allowedcorsorigins: http://denktmit.de

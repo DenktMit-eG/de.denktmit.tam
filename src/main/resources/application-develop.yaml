@@ -16,5 +16,8 @@ spring:
     cache: false
     check-template-location: true
     prefix: file:./src/main/resources/templates/
-    flyway:
-      locations: classpath:/db/migration,classpath:/db/testdata
+  flyway:
+    locations: classpath:/db/migration,classpath:/db/testdata
+allowed:
+  origins: http://localhost:8080,https://localhost:8080
+  headers: Content-Type,Authorization,loggedInUserId,Cache-Control,Pragma,Expires

@@ -45,8 +45,6 @@ public class CustomerEntity extends Auditable<String> {
     @NotBlank
     private String addressStreet;
 
-    private String createdBy;
-
     private CustomerEntity() {
         this.companyName = null;
     }

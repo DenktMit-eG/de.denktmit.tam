@@ -4,6 +4,7 @@ import de.denktmit.tam.webapp.model.business.CustomerEntity;
 import de.denktmit.tam.webapp.web.model.CustomerDTO;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
+import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
 import java.util.List;
@@ -18,4 +19,8 @@ public interface CustomerMapper {
     CustomerEntity fromDTO(CustomerDTO customerDTO);
 
     List<CustomerDTO> toDTOs(List<CustomerEntity> customerEntities);
+
+    default Page<CustomerDTO> toPageOfDTOs(Page<CustomerEntity> customerEntities) {
+        return customerEntities.map(this::toDTO);
+    }
 }

@@ -1,25 +1,99 @@
 package de.denktmit.tam.webapp.service.impl;
 
 import de.denktmit.tam.webapp.model.business.CustomerEntity;
+import de.denktmit.tam.webapp.model.business.ProjectEntity;
 import de.denktmit.tam.webapp.persistence.CustomerRepository;
+import de.denktmit.tam.webapp.persistence.ProjectRepository;
 import de.denktmit.tam.webapp.service.CustomerService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 public class CustomerServiceImpl implements CustomerService {
 
     private CustomerRepository customerRepository;
+    private ProjectRepository projectRepository;
 
     @Autowired
     public CustomerServiceImpl(CustomerRepository customerRepository) {
         this.customerRepository = customerRepository;
     }
 
-    public List<CustomerEntity> findAll(Sort sort) {
-        return (List<CustomerEntity>) customerRepository.findAll(sort);
+    @Transactional
+    @Override
+    public void deleteCustomerById(Long id) throws IllegalArgumentException {
+        Optional<CustomerEntity> customer = customerRepository.getById(id);
+        if (customer.isEmpty()) {
+            throw new IllegalArgumentException("Customer with ID:{" + id + "} does not exist");
+        }
+
+        List<ProjectEntity> linkedProjects = projectRepository.findProjectsByCustomer(customer.get());
+        if (linkedProjects.size() > 0) {
+            throw new IllegalArgumentException("Customer with ID:{" + id + "} has linked projects");
+        }
+
+        customerRepository.delete(customer.get());
+    }
+
+    @Transactional
+    @Override
+    public CustomerEntity createCustomer(CustomerEntity customerEntity) {
+        if (customerEntity.getId() != null && existsCustomerWithId(customerEntity.getId())) {
+            throw new IllegalArgumentException(
+                    "Customer with PK ID:{" + customerEntity.getId() + "} does already" + " exist");
+        }
+
+        if (existsCustomerWithCompanyName(customerEntity.getCompanyName())) {
+            throw new IllegalArgumentException("Customer with companyName:{" + customerEntity.getCompanyName()
+                    + "} does " + "already" + " exist");
+        }
+
+        return customerRepository.save(customerEntity);
+    }
+
+    private boolean existsCustomerWithId(Long id) {
+        return findCustomerById(id).isPresent();
+    }
+
+    private boolean existsCustomerWithCompanyName(String companyName) {
+        return findCustomerByCompanyName(companyName).isPresent();
+    }
+
+    @Transactional
+    @Override
+    public CustomerEntity updateCustomer(CustomerEntity customerEntity) {
+        return null;
+    }
+
+    @Override
+    public Optional<CustomerEntity> findCustomerById(Long id) {
+        return customerRepository.findById(id);
+    }
+
+    @Override
+    public Optional<CustomerEntity> findCustomerByCompanyName(String commpanyName) {
+        return customerRepository.getByCompanyName(commpanyName);
+    }
+
+    @Override
+    public List<CustomerEntity> findAllCustomers() {
+        return customerRepository.findAll();
+    }
+
+    @Override
+    public List<CustomerEntity> findAllCustomers(Sort sort) {
+        return customerRepository.findAll(sort);
+    }
+
+    @Override
+    public Page<CustomerEntity> findAllCustomers(Pageable pageable) {
+        return customerRepository.findAll(pageable);
     }
 }

@@ -1,4 +1,4 @@
-CREATE SEQUENCE seq_hibernate START WITH 1 INCREMENT BY 50 NO CYCLE;
+CREATE SEQUENCE seq_hibernate START WITH 10000 INCREMENT BY 50 NO CYCLE;
 
 CREATE  TABLE cost_centre (
                               id                   bigint  NOT NULL  ,
@@ -15,17 +15,17 @@ CREATE  TABLE cost_centre (
 
 CREATE  TABLE customer (
                            id                   bigint  NOT NULL  ,
-                           company_name         varchar(100)  NOT NULL  ,
-                           contact_name         varchar(100)  NOT NULL  ,
+                           company_name         varchar(200)  NOT NULL  ,
+                           contact_name         varchar(200)  NOT NULL  ,
                            address_country_iso_code varchar(5)  NOT NULL  ,
                            address_zip           varchar(10)  NOT NULL  ,
                            address_city          varchar(100)  NOT NULL  ,
-                           address_street        varchar(100)  NOT NULL  ,
+                           address_street        varchar(200)  NOT NULL  ,
                            created_by           varchar(100)  NOT NULL  ,
                            creation_date        timestamptz  NOT NULL  ,
                            last_modified_by     varchar(100)  NOT NULL  ,
                            last_modified_date   timestamptz  NOT NULL  ,
-                           CONSTRAINT pk_kunde PRIMARY KEY ( id ),
+                           CONSTRAINT pk_customer PRIMARY KEY ( id ),
                            CONSTRAINT unq_customer_company UNIQUE ( company_name )
 );
 

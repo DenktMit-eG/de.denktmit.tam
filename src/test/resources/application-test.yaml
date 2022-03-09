@@ -1,8 +1,19 @@
-
 spring:
   datasource:
-    url: jdbc:postgresql://localhost:15432/application-db
+    url: jdbc:postgresql://localhost:25432/application-db
     username: dbuser
     password: supersecret
   jooq:
     sql-dialect: postgres
+  jpa:
+    generate-ddl: false
+    hibernate:
+      ddl-auto: validate
+      use-new-id-generator-mappings: true
+    open-in-view: false
+    show-sql: true
+  thymeleaf:
+    check-template-location: true
+    prefix: file:./src/main/resources/templates/
+    flyway:
+      locations: classpath:/db/migration,classpath:/db/testdata

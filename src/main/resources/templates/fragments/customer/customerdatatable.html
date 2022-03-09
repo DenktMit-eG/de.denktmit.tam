@@ -1,0 +1,111 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="customerdatatable" class="tam-body">
+    <div class="table-customers">
+        <h4 class="heading mb-5">Erfasste Kundendaten</h4>
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Unternehmen</th>
+                <th>Ansprechpartner</th>
+                <th>ISO Code Land</th>
+                <th>PLZ</th>
+                <th>Stadt</th>
+                <th>Straße und Hausnummer</th>
+                <th>Speichern</th>
+                <th>Löschen</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:each="customer : ${customersPage}">
+                <form th:action="@{/customer/{p} (p=${currentPage})}" th:method="patch">
+                    <input th:value="${customer.id}" name="uuid" hidden>
+                    <td>
+                        <input th:value="${customer.companyName}"
+                               class="no-border max-width"
+                               name="companyName"
+                               oninput="enableEditButton(this)"
+                               type="text"
+                               required
+                               maxlength="200"
+                        />
+                    </td>
+                    <td>
+                        <input th:value="${customer.contactName}"
+                               class="no-border max-width"
+                               name="contactName"
+                               oninput="enableEditButton(this)"
+                               type="text"
+                               required
+                               maxlength="200"/>
+                    </td>
+                    <td>
+                        <input th:value="${customer.addressCountryIsoCode}"
+                               class="no-border tam-ticket-code max-width"
+                               name="addressCountryIsoCode"
+                               oninput="enableEditButton(this)"
+                               type="text"
+                               required
+                               maxlength="5"/>
+                    </td>
+                    <td>
+                        <input th:value="${customer.addressZip}"
+                               class="no-border tam-cost-center max-width"
+                               name="addressZip"
+                               oninput="enableEditButton(this)"
+                               type="number"
+                               required
+                               maxlength="10"/>
+                    </td>
+                    <td>
+                        <input th:value="${customer.addressCity}"
+                               class="no-border tam-hourly-rate max-width"
+                               name="addressCity"
+                               oninput="enableEditButton(this)"
+                               required
+                               maxlength="100"/>
+                    </td>
+                    <td>
+                        <input th:value="${customer.addressStreet}"
+                               class="no-border tam-hourly-rate max-width"
+                               name="addressStreet"
+                               oninput="enableEditButton(this)"
+                               required
+                               maxlength="200"/>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-success edit-button tam-edit" disabled>Edit</button>
+                    </td>
+                </form>
+
+                <form th:action="@{/customer/} + ${currentPage} + '/' + ${customer.id}"
+                      th:method="delete">
+                    <td>
+                        <button class="btn btn-danger delete-button tam-delete">Delete</button>
+                    </td>
+                </form>
+            </tr>
+            </tbody>
+        </table>
+
+        <div class="pagination">
+            <span th:if="${customersPage.hasPrevious()}" class="page-item d-inline-block" id="pagination">
+                <a th:href="@{/customer/} + ${currentPage - 1}" class="tam-previous">Zurück</a>
+            </span>
+            <th:block th:each="i: ${#numbers.sequence(1, customersPage.totalPages)}">
+            <span >
+                <a th:classappend="${customersPage.number == i - 1} ? active : inactive" th:href="@{/customer/} + ${i}">[[${i}]]</a>
+            </span>
+            </th:block>
+            <span th:if="${customersPage.hasNext()}" id="pagination">
+                <a th:href="@{/customer/} + ${currentPage + 1}" class="tam-next">Vor</a>
+            </span>
+        </div>
+        
+    </div>
+</div>
+<script>
+    function enableEditButton(element) {
+        $(element).closest("tr").find('.tam-edit').prop('disabled', false);
+    }
+</script>
+</html>

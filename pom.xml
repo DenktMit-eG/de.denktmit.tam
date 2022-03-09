@@ -31,6 +31,7 @@
         <version.org.mapstruct>1.4.2.Final</version.org.mapstruct>
         <version.org.projectlombok>1.18.22</version.org.projectlombok>
         <version.org.projectlombok.mapstruct-lombok-binding>0.2.0</version.org.projectlombok.mapstruct-lombok-binding>
+        <version.org.springframework.boot.spring-boot-starter-webflux>2.2.6.RELEASE</version.org.springframework.boot.spring-boot-starter-webflux>
         <version.org.webjars.bootstrap>4.0.0-2</version.org.webjars.bootstrap>
         <version.org.webjars.webjars-locator>0.30</version.org.webjars.webjars-locator>
     </properties>
@@ -83,6 +84,11 @@
             <artifactId>spring-boot-starter-web</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-webflux</artifactId>
+            <version>${version.org.springframework.boot.spring-boot-starter-webflux}</version>
+        </dependency>
+        <dependency>
             <groupId>org.thymeleaf.extras</groupId>
             <artifactId>thymeleaf-extras-springsecurity5</artifactId>
         </dependency>
@@ -124,6 +130,11 @@
             <artifactId>postgresql</artifactId>
             <version>42.3.2</version>
             <scope>runtime</scope>
+        </dependency>
+        <dependency>
+            <groupId>junit</groupId>
+            <artifactId>junit</artifactId>
+            <scope>test</scope>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

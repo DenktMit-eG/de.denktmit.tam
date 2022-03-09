@@ -16,6 +16,11 @@ public final class Routes {
     public static final String ME = "/me";
     public static final String REST = "/rest";
     public static final String REST_UPLOAD = "/rest/upload";
-    public static final String COSTUMER = "/customer";
-    public static final String COSTUMER_SIMPLE = "/customer/simplelist";
+    public static final String COSTUMERS = "/customers-datatable";
+    public static final String COSTUMER = "/customer/{currentPage}";
+    public static final String COSTUMER_SIMPLE = "/simplelist";
+
+    public static final String prependRedirect(String route) {
+        return "redirect:" + route;
+    }
 }

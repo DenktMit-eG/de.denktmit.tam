@@ -3,13 +3,18 @@
 Web application to process time and material records
 
 ## Start hacking
-    docker-compose up -d
+application-develop:
+run develop db: docker-compose -f docker-compose-develop.yaml up -d
+
+application-test:
+run develop db: docker-compose -f docker-compose-IT.yaml up -d
+
+## Build
+Maven build automatically runs IT tests against docker-compose-IT.yaml
 
 ## Autogenerate DB Schema
+Run SchemaCrawler in Docker against docker instance name "tam-develop-pg", which should be started manually Automatically updates dbschema.png:
 
 ./runMermaid.sh
-Runs SchemaCrawler in Docker against IP 172.17.0.3, with some luck that's your TEST application-db Docker container. Automatically updates dbschema.png.
-
-Smart solution welcome.
 
 ![image info](./dbschema.png)

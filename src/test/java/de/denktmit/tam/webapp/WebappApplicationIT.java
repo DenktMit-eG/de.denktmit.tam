@@ -9,7 +9,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 
 @SpringBootTest
 @ActiveProfiles("test")
-@TestPropertySource("classpath:application-test.yaml")
 class WebappApplicationIT {
 
 	@Test

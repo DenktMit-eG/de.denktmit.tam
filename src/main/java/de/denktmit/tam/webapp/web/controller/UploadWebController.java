@@ -2,6 +2,7 @@ package de.denktmit.tam.webapp.web.controller;
 
 import com.opencsv.exceptions.CsvValidationException;
 import de.denktmit.tam.webapp.model.business.TimeSheetRecordEntity;
+import de.denktmit.tam.webapp.model.business.WorkRecordEntity;
 import de.denktmit.tam.webapp.service.FileSystemService;
 import de.denktmit.tam.webapp.service.TimeSheetDocumentService;
 import de.denktmit.tam.webapp.service.TimeSheetRecordService;
@@ -30,9 +31,6 @@ import java.util.Objects;
 @Controller
 @SessionAttributes({"workRecordSelection", "fileUpload"})
 public class UploadWebController implements WebMvcConfigurer {
-
-    //TODO: implement WorkRecord ID and File Form
-    //TODO: upload to REST and Display Result without the redirect attributes
 
     private final WorkRecordService workRecordService;
     private final FileSystemService fileSystemService;
@@ -98,12 +96,16 @@ public class UploadWebController implements WebMvcConfigurer {
             fileSystemService.saveToUploads(fileUpload.getMultipartFile());
             if (!workRecordService.existsById(workRecordId)) {
                 mov.addObject("message",
-                        "Beim Upload ist ein Fehler aufgetreten. Die Zeitnachweis ID für Ihren Upload ist dem System nicht bekannt");
+                        "Beim Upload ist ein Fehler aufgetreten. Die Zeitnachweis ID für Ihren Upload " +
+                                "ist dem System nicht bekannt");
                 return mov;
             }
             MultipartFile multipartFile = fileUpload.getMultipartFile();
-            List<TimeSheetRecordEntity> timeSheetRecordEntities = timeSheetRecordService.convertFilestreamToTimeSheetRecordEntities(
-                    multipartFile.getInputStream(), workRecordService.findById(workRecordId).get());
+            WorkRecordEntity workRecord = workRecordService.findById(workRecordId).get();
+            List<TimeSheetRecordEntity> timeSheetRecordEntities =
+                    timeSheetRecordService.convertFilestreamToTimeSheetRecordEntities(multipartFile.getInputStream(),
+                            workRecord);
+
             timeSheetRecordService.replaceByWorkRecordId(workRecordId, timeSheetRecordEntities);
             timeSheetDocumentService.saveNewTimeSheetDocument("Timesheet",
                     StringUtils.cleanPath(Objects.requireNonNull(multipartFile.getOriginalFilename())),
