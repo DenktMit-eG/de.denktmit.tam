@@ -1,10 +1,11 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-    <title></title>
+    <title>DenktMit Time and Material Tool CSV Upload</title>
+    <meta th:replace="fragments/metatags.html"/>
 </head>
 <body>
+    <div th:replace="fragments/navigation"></div>
     <p th:text="${message}"/>
     <p th:text="${fileUpload}"/>
     <p th:text="${workRecordSelection}"/>

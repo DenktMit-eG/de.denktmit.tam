@@ -14,13 +14,11 @@ public final class Routes {
     public static final String USERS = "/users";
     public static final String USER = USERS + "/{loginName}";
     public static final String ME = "/me";
-    public static final String REST = "/rest";
-    public static final String REST_UPLOAD = "/rest/upload";
-    public static final String COSTUMERS = "/customers-datatable";
-    public static final String COSTUMER = "/customer/{currentPage}";
-    public static final String COSTUMER_SIMPLE = "/simplelist";
+    public static final String CUSTOMER = "/customer/{currentPage}";
+    public static final String PATCH_CUSTOMER = "/customer/{currentPage}/patch";
+    public static final String DELETE_CUSTOMER = "/customer/{currentPage}/delete/{customerId}";
 
-    public static final String prependRedirect(String route) {
+    public static String prependRedirect(String route) {
         return "redirect:" + route;
     }
 }

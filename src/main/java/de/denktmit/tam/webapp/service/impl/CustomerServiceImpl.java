@@ -22,8 +22,9 @@ public class CustomerServiceImpl implements CustomerService {
     private ProjectRepository projectRepository;
 
     @Autowired
-    public CustomerServiceImpl(CustomerRepository customerRepository) {
+    public CustomerServiceImpl(CustomerRepository customerRepository, ProjectRepository projectRepository) {
         this.customerRepository = customerRepository;
+        this.projectRepository = projectRepository;
     }
 
     @Transactional
@@ -69,7 +70,20 @@ public class CustomerServiceImpl implements CustomerService {
     @Transactional
     @Override
     public CustomerEntity updateCustomer(CustomerEntity customerEntity) {
-        return null;
+        Optional<CustomerEntity> customerById = findCustomerById(customerEntity.getId());
+        //TODO: dangerous because wrong if we add one field to the entity, is there a generic mapper?
+        if (customerById.isPresent()) {
+            customerById.get().setContactName(customerEntity.getContactName());
+            customerById.get().setAddressCity(customerEntity.getAddressCity());
+            customerById.get().setAddressCountryIsoCode(customerEntity.getAddressCountryIsoCode());
+            customerById.get().setAddressStreet(customerEntity.getAddressStreet());
+            customerById.get().setAddressZip(customerEntity.getAddressZip());
+            customerRepository.save(customerById.get());
+            return customerById.get();
+        } else {
+            throw new IllegalArgumentException("Customer can not be updated. It does not exist.");
+        }
+
     }
 
     @Override

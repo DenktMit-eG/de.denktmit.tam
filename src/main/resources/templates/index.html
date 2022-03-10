@@ -2,11 +2,12 @@
 <html>
     <head xmlns:th="http://www.thymeleaf.org">
         <title>DenktMit TAM</title>
-        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+        <meta th:replace="fragments/metatags.html"/>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     </head>
 
     <body>
+        <div th:replace="fragments/navigation"></div>
         <section class="my-5">
             <div class="container">
                 <div class="row">

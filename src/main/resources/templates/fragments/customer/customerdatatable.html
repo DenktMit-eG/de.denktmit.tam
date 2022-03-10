@@ -17,8 +17,8 @@
             </thead>
             <tbody>
             <tr th:each="customer : ${customersPage}">
-                <form th:action="@{/customer/{p} (p=${currentPage})}" th:method="patch">
-                    <input th:value="${customer.id}" name="uuid" hidden>
+                <form th:action="@{/customer/{p}/patch (p=${currentPage})}" th:method="post">
+                    <input th:value="${customer.id}" name="id" hidden>
                     <td>
                         <input th:value="${customer.companyName}"
                                class="no-border max-width"
@@ -73,14 +73,13 @@
                                maxlength="200"/>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-success edit-button tam-edit" disabled>Edit</button>
+                        <button type="submit" class="btn btn-success edit-button tam-edit" disabled>Speichern</button>
                     </td>
                 </form>
 
-                <form th:action="@{/customer/} + ${currentPage} + '/' + ${customer.id}"
-                      th:method="delete">
+                <form th:method="get" th:action="@{/customer/} + ${currentPage} + '/delete/' + ${customer.id}">
                     <td>
-                        <button class="btn btn-danger delete-button tam-delete">Delete</button>
+                        <button class="btn btn-danger delete-button tam-delete">Löschen</button>
                     </td>
                 </form>
             </tr>
