@@ -16,13 +16,13 @@ public class TimeSheetRecordMapper {
     static TimeSheetRecordEntity mapCsvRecordToTimeSheetRecord(WorkRecordEntity workRecord, String[] record) throws
             IllegalArgumentException {
         short position = Short.parseShort(record[0]);
-        LocalDate date = LocalDate.parse((record[1]), LocalTimeFormatters.dateFormatter);
+        LocalDate date = LocalDate.parse((record[1]), LocalTimeFormatters.DATE_FORMATTER);
         Instant begin = LocalDateTime.parse((record[1]) + " " + record[2],
-                LocalTimeFormatters.dateTimeFormatter).toInstant(ZoneOffset.UTC);
+                LocalTimeFormatters.DATETIME_FORMATTER).toInstant(ZoneOffset.UTC);
         Instant end = LocalDateTime.parse((record[1]) + " " + record[3],
-                LocalTimeFormatters.dateTimeFormatter).toInstant(ZoneOffset.UTC);
+                LocalTimeFormatters.DATETIME_FORMATTER).toInstant(ZoneOffset.UTC);
         int durationInMinutes = Integer.parseInt(record[4]);
-        String ratePerHourWithDecimalDot = LocalNumberFormatConverter.convertNumberStringFromDEtoUS(record[5]);
+        String ratePerHourWithDecimalDot = LocalNumberFormatConverter.converFromDEtoUSFormat(record[5]);
         BigDecimal ratePerHour = new BigDecimal(ratePerHourWithDecimalDot);
         String description = record[6];
 

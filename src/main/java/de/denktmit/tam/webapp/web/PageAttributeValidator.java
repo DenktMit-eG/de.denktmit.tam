@@ -5,7 +5,7 @@ import org.springframework.stereotype.Component;
 import java.util.Optional;
 
 @Component
-public class PageAttributeChecker {
+public class PageAttributeValidator {
     private static final int DEFAULT_PAGE_NUMBER = 1;
 
     public static int checkPageId(Optional<Integer> page) {

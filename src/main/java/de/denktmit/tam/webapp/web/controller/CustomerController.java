@@ -1,6 +1,6 @@
 package de.denktmit.tam.webapp.web.controller;
 
-import de.denktmit.tam.webapp.web.PageAttributeChecker;
+import de.denktmit.tam.webapp.web.PageAttributeValidator;
 import de.denktmit.tam.webapp.web.Routes;
 import de.denktmit.tam.webapp.web.model.CustomerDTO;
 import de.denktmit.tam.webapp.web.service.CustomerWebService;
@@ -29,7 +29,7 @@ public class CustomerController {
     public String getCustomerCRUDTableView(Model model,
                                            @PathVariable(value = "currentPage", required = false) Optional<Integer> pageFromPath) {
 
-        int page = PageAttributeChecker.checkPageId(pageFromPath);
+        int page = PageAttributeValidator.checkPageId(pageFromPath);
 
         model.addAttribute("currentPage", page);
         model.addAttribute("newCustomer", new CustomerDTO());
