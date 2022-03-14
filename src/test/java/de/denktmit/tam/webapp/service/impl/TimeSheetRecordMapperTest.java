@@ -34,23 +34,13 @@ class TimeSheetRecordMapperTest {
 
         String description = "Unit Testing";
 
-        String[] record = {
-                position,
-                dateString,
-                beginTimeString,
-                endTimeString,
-                durationString,
-                rateString,
-                description};
+        String[] record = {position, dateString, beginTimeString, endTimeString, durationString, rateString, description};
 
-        WorkRecordEntity workRecordEntity = new WorkRecordEntity(
-                new ContractEntity("1"),
-                Short.parseShort("2022"),
-                Short.parseShort("3"),
-                Instant.now());
+        WorkRecordEntity workRecordEntity = new WorkRecordEntity(new ContractEntity("1"),
+                Short.parseShort("2022"), Short.parseShort("3"), Instant.now());
 
-        TimeSheetRecordEntity mappingResult = TimeSheetRecordMapper.mapCsvRecordToTimeSheetRecord(
-                workRecordEntity, record);
+        TimeSheetRecordEntity mappingResult = TimeSheetRecordMapper.mapCsvRecordToTimeSheetRecord(workRecordEntity,
+                record);
 
         assertEquals(position, mappingResult.getPosition().toString());
         assertEquals(date, mappingResult.getDate());
