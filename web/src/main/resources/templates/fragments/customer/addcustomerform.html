@@ -1,0 +1,77 @@
+<html xmlns:th="http://www.thymeleaf.org">
+<form th:action="@{/customer/{p} (p=${currentPage})}" th:object="${newCustomer}"
+      method="post" class="tam-header" name="customerForm">
+    <div th:fragment="customertable">
+        <table class="table">
+            <thead>
+            <tr>
+                <th>Unternehmen</th>
+                <th>Ansprechpartner</th>
+                <th>ISO Code Land</th>
+                <th>PLZ</th>
+                <th>Stadt</th>
+                <th>Straße und Hausnummer</th>
+                <th>Speichern</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>
+                    <input th:field="*{companyName}"
+                           class="form-control tam-company-name"
+                           type="text"
+                           required
+                           maxlength="200"/>
+                </td>
+                <td class="padding-middle">
+                    <input th:field="*{contactName}"
+                           class="form-control tam-contact-name"
+                           type="text"
+                           required
+                           maxlength="200"/>
+                    </input>
+                </td>
+                <td class="padding-middle">
+                    <input th:field="*{addressCountryIsoCode}"
+                           class="form-control tam-address-country-iso-code"
+                           type="text"
+                           required
+                           maxlength="5"/>
+                </td>
+                <td class="padding-middle">
+                    <input th:field="*{addressZip}"
+                           class="form-control tam-address-zip"
+                           type="number"
+                           required
+                           maxlength="10"/>
+                </td>
+                <td class="padding-middle">
+                    <input th:field="*{addressCity}"
+                           class="form-control tam-adress-city"
+                           type="text"
+                           required
+                           maxlength="100"/>
+                </td>
+                <td class="padding-middle">
+                    <input th:field="*{addressStreet}"
+                           class="form-control tam-adress-street"
+                           type="text"
+                           required
+                           maxlength="200"/>
+                </td>
+                <td>
+                    <button class="btn btn-success pull-right tam-save" type="submit">Speichern</button>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+
+        <div th:if="${message}" th:text="${message}"
+             class="alert alert-success">
+        </div>
+        <div th:if="${errorMessage}" th:text="${errorMessage}"
+             class="alert alert-danger">
+        </div>
+
+    </div>
+</form>

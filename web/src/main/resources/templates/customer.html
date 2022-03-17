@@ -1,0 +1,14 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta th:replace="fragments/metatags.html"/>
+    <title>Kundendaten erfassen</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+</head>
+<body>
+    <div th:replace="fragments/navigation"></div>
+
+    <div th:replace="fragments/customer/customerdatatable"></div>
+    <div th:replace="fragments/customer/addcustomerform"></div>
+</body>
+</html>
