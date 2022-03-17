@@ -2,6 +2,8 @@ package de.denktmit.tam.web.mapper;
 
 import de.denktmit.tam.persistence.model.WorkRecordEntity;
 import de.denktmit.tam.web.model.WorkRecordDTO;
+import org.mapstruct.Mapper;
+import org.mapstruct.factory.Mappers;
 import org.springframework.data.domain.Page;
 import org.springframework.stereotype.Repository;
 
@@ -11,11 +13,11 @@ import java.time.LocalTime;
 import java.time.ZoneOffset;
 import java.util.List;
 
-//@Mapper(componentModel = "spring")
+@Mapper(componentModel = "spring")
 @Repository
 public interface WorkRecordMapper {
 
-    //WorkRecordMapper INSTANCE = Mappers.getMapper(WorkRecordMapper.class);
+    WorkRecordMapper INSTANCE = Mappers.getMapper(WorkRecordMapper.class);
 
     WorkRecordDTO toWorkRecordDto(WorkRecordEntity workRecordEntity);
 

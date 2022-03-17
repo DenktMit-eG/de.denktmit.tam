@@ -59,23 +59,23 @@
             <artifactId>spring-boot-starter-validation</artifactId>
         </dependency>
         <dependency>
+            <groupId>org.mapstruct</groupId>
+            <artifactId>mapstruct</artifactId>
+            <version>${version.org.mapstruct}</version>
+            <scope>provided</scope>
+        </dependency>
+        <dependency>
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>${version.org.projectlombok}</version>
             <scope>provided</scope>
         </dependency>
-        <!--        <dependency>-->
-        <!--            <groupId>org.mapstruct</groupId>-->
-        <!--            <artifactId>mapstruct</artifactId>-->
-        <!--            <version>${version.org.mapstruct}</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
-        <!--        <dependency>-->
-        <!--            <groupId>org.projectlombok</groupId>-->
-        <!--            <artifactId>lombok-mapstruct-binding</artifactId>-->
-        <!--            <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>-->
-        <!--            <scope>provided</scope>-->
-        <!--        </dependency>-->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok-mapstruct-binding</artifactId>
+            <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>
+            <scope>provided</scope>
+        </dependency>
         <dependency>
             <groupId>io.micrometer</groupId>
             <artifactId>micrometer-registry-prometheus</artifactId>
@@ -260,21 +260,21 @@
                         <source>${java.version}</source>
                         <target>${java.version}</target>
                         <annotationProcessorPaths>
-                            <!--                            <path>-->
-                            <!--                                <groupId>org.mapstruct</groupId>-->
-                            <!--                                <artifactId>mapstruct-processor</artifactId>-->
-                            <!--                                <version>${version.org.mapstruct}</version>-->
-                            <!--                            </path>-->
+                            <path>
+                                <groupId>org.mapstruct</groupId>
+                                <artifactId>mapstruct-processor</artifactId>
+                                <version>${version.org.mapstruct}</version>
+                            </path>
                             <path>
                                 <groupId>org.projectlombok</groupId>
                                 <artifactId>lombok</artifactId>
                                 <version>${version.org.projectlombok}</version>
                             </path>
-                            <!--                            <path>-->
-                            <!--                                <groupId>org.projectlombok</groupId>-->
-                            <!--                                <artifactId>lombok-mapstruct-binding</artifactId>-->
-                            <!--                                <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>-->
-                            <!--                            </path>-->
+                            <path>
+                                <groupId>org.projectlombok</groupId>
+                                <artifactId>lombok-mapstruct-binding</artifactId>
+                                <version>${version.org.projectlombok.mapstruct-lombok-binding}</version>
+                            </path>
                         </annotationProcessorPaths>
                     </configuration>
                 </plugin>
@@ -301,18 +301,10 @@
                 <groupId>org.jacoco</groupId>
                 <artifactId>jacoco-maven-plugin</artifactId>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>org.springframework.boot</groupId>-->
-            <!--                <artifactId>spring-boot-maven-plugin</artifactId>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-failsafe-plugin</artifactId>
             </plugin>
-            <!--            <plugin>-->
-            <!--                <groupId>com.dkanejs.maven.plugins</groupId>-->
-            <!--                <artifactId>docker-compose-maven-plugin</artifactId>-->
-            <!--            </plugin>-->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
