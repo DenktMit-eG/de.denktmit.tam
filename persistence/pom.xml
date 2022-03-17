@@ -4,10 +4,11 @@
     <parent>
         <groupId>de.denktmit.tam</groupId>
         <artifactId>aggregator</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}${sha1}${changelist}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>persistence</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}${sha1}${changelist}</version>
     <name>tam :: persistence</name>
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>

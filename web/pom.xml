@@ -4,10 +4,11 @@
     <parent>
         <groupId>de.denktmit.tam</groupId>
         <artifactId>aggregator</artifactId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>${revision}${sha1}${changelist}</version>
+        <relativePath>../pom.xml</relativePath>
     </parent>
     <artifactId>web</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}${sha1}${changelist}</version>
     <name>tam :: web</name>
     <properties>
         <maven.compiler.source>${java.version}</maven.compiler.source>
@@ -15,9 +16,9 @@
     </properties>
     <dependencies>
         <dependency>
-            <groupId>de.denktmit.tam</groupId>
+            <groupId>${project.groupId}</groupId>
             <artifactId>business</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${project.version}</version>
         </dependency>
         <dependency>
             <groupId>org.springframework.boot</groupId>

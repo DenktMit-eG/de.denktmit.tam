@@ -5,12 +5,10 @@
         <groupId>org.springframework.boot</groupId>
         <artifactId>spring-boot-starter-parent</artifactId>
         <version>2.6.3</version>
-        <relativePath></relativePath>
-        <!-- lookup parent from repository -->
     </parent>
     <groupId>de.denktmit.tam</groupId>
     <artifactId>aggregator</artifactId>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>${revision}${sha1}${changelist}</version>
     <packaging>pom</packaging>
     <name>tam :: aggregator</name>
     <description>Time and Material Tracking</description>
@@ -21,15 +19,16 @@
         <module>application</module>
     </modules>
     <properties>
-        <aggregator-version>0.0.1</aggregator-version>
+        <changelist>-SNAPSHOT</changelist>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <revision>0.0.1</revision>
+        <sha1></sha1>
         <skip.reports.jacoco>false</skip.reports.jacoco>
         <snapshot-tag>-SNAPSHOT</snapshot-tag>
-        <tam.version>0.0.1-SNAPSHOT</tam.version>
         <version.com.dkanejs.maven.plugins>2.4.0</version.com.dkanejs.maven.plugins>
         <version.com.github.ekryd.sortpom.sortpom-maven-plugin>3.0.1</version.com.github.ekryd.sortpom.sortpom-maven-plugin>
         <version.com.opencsv>5.5.2</version.com.opencsv>
