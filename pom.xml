@@ -20,6 +20,7 @@
     </modules>
     <properties>
         <changelist>-SNAPSHOT</changelist>
+        <jar.name>tam-${project.version}</jar.name>
         <java.version>17</java.version>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>

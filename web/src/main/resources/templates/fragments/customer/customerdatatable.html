@@ -1,19 +1,19 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <div th:fragment="customerdatatable" class="tam-body">
-    <div class="table-customers">
-        <h4 class="heading mb-5">Erfasste Kundendaten</h4>
-        <table class="table">
-            <thead>
-            <tr>
-                <th>Unternehmen</th>
-                <th>Ansprechpartner</th>
-                <th>ISO Code Land</th>
-                <th>PLZ</th>
-                <th>Stadt</th>
-                <th>Straße und Hausnummer</th>
-                <th>Speichern</th>
-                <th>Löschen</th>
-            </tr>
+    <div class="table-responsive">
+        <h1 class="heading mb-3 mt-3 ml-1">Kundendaten</h1>
+        <table class="table table-sm table-striped table-bordered table-hover">
+            <thead class="thead-dark">
+                <tr>
+                    <th>Unternehmen</th>
+                    <th>Ansprechpartner</th>
+                    <th>ISO Code Land</th>
+                    <th>PLZ</th>
+                    <th>Stadt</th>
+                    <th>Straße und Hausnummer</th>
+                    <th>Speichern</th>
+                    <th>Löschen</th>
+                </tr>
             </thead>
             <tbody>
             <tr th:each="customer : ${customersPage}">

@@ -9,7 +9,6 @@ import org.springframework.stereotype.Repository;
 
 import java.util.List;
 
-
 @Mapper(componentModel = "spring")
 @Repository
 public interface CustomerMapper {
